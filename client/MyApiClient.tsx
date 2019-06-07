@@ -2,7 +2,6 @@ import * as React from "react";
 
 import axios from "restyped-axios";
 import { API_PATH, MyApi } from "shared/types/api";
-import { MyType } from "shared/types/mytypes";
 
 interface Props {
   input: string;
@@ -10,7 +9,7 @@ interface Props {
 
 interface State {
   isLoaded: boolean;
-  value: MyType | null;
+  output: string;
 }
 
 const client = axios.create<MyApi>({ baseURL: API_PATH });
@@ -21,7 +20,7 @@ export default class MyApiClient extends React.Component<Props, State> {
     super(props);
     this.state = {
       isLoaded: false,
-      value: null
+      output: null
     };
   }
 
@@ -36,24 +35,20 @@ export default class MyApiClient extends React.Component<Props, State> {
       .then(response => {
         this.setState({
           isLoaded: true,
-          value: response.data
+          output: response.data.output
         });
       })
       .catch(error => {
         this.setState({
           isLoaded: true,
-          value: {
-            success: false,
-            successMessage: null,
-            errorMessage: error
-          }
+          output: error.toString()
         });
       });
   }
 
   render() {
     return this.state.isLoaded ? (
-      <p>{this.state.value.successMessage || this.state.value.errorMessage}</p>
+      <p>{this.state.output}</p>
     ) : (
       <p>Loading...</p>
     );

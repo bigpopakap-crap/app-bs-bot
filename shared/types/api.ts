@@ -1,5 +1,3 @@
-import { MyType } from "shared/types/mytypes";
-
 export const API_PATH = "/api";
 
 export interface MyApi {
@@ -8,7 +6,9 @@ export interface MyApi {
       query: {
         input: string;
       };
-      response: MyType;
+      response: {
+        output: string;
+      };
     };
   };
 }

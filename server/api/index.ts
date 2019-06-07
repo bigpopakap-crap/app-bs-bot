@@ -8,9 +8,7 @@ const router = RestypedRouter<MyApi>(app);
 router.get("/", async request => {
   const input = request.query.input;
   return {
-    success: true,
-    successMessage: `My Api: ${input}`,
-    errorMessage: null
+    output: `My Api: ${input}`,
   };
 });
 

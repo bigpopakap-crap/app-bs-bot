@@ -8,7 +8,7 @@ import webpackConfig from "../webpack.config.dev";
 import api from "./api";
 import { API_PATH } from "../shared/types/api";
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 
 const compiler = webpack(webpackConfig);
 const app = express();
