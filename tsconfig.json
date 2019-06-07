@@ -4,6 +4,7 @@
     "target": "es5",
     "jsx": "react",
     "module": "commonjs",
+    "moduleResolution": "node",
     "noImplicitAny": true,
     "removeComments": true,
     "preserveConstEnums": true,

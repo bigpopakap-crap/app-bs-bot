@@ -33,7 +33,8 @@ module.exports = {
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".jsx"],
     alias: {
-      "react-dom": "@hot-loader/react-dom"
+      "react-dom": "@hot-loader/react-dom",
+      shared: path.join(__dirname, "shared")
     }
   }
 };

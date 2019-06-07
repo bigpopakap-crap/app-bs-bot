@@ -1,9 +1,9 @@
 {
-  "name": "typescript-express-react",
+  "name": "typescript-express-react-axios-restyped",
   "private": true,
-  "description": "typescript, express, react starter with a shared client/server directory.",
+  "description": "typescript, express, react starter with a shared client/server directory. This version also includes axios and restypes for nice Typescript-typed APIs.",
   "scripts": {
-    "start": "nodemon --watch server --exec babel-node --  --extensions \".ts\" server/index.ts"
+    "start": "nodemon --watch server --exec babel-node --  --extensions .ts server/index.ts"
   },
   "dependencies": {
     "@babel/node": "7.2.2",
@@ -19,6 +19,8 @@
     "react": "16.7.0",
     "react-dom": "16.7.0",
     "react-hot-loader": "4.6.3",
+    "restyped-axios": "^2.0.0",
+    "restyped-express-async": "^0.6.1",
     "webpack": "4.28.4",
     "webpack-dev-middleware": "3.5.0",
     "webpack-hot-middleware": "2.24.3"

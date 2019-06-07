@@ -1,16 +1,17 @@
 import express from "express";
-import { MyType } from "shared/types/mytypes";
+import RestypedRouter from "restyped-express-async";
+import { MyApi } from "shared/types/api";
 
-const api = express();
+const app = express();
+const router = RestypedRouter<MyApi>(app);
 
-api.get("/", async (req, res) => {
-  const returnValue: MyType = {
+router.get("/", async request => {
+  const input = request.query.input;
+  return {
     success: true,
-    successMessage: "My App Api",
+    successMessage: `My Api: ${input}`,
     errorMessage: null
   };
-
-  res.json(returnValue).end();
 });
 
-export default api;
+export default app;

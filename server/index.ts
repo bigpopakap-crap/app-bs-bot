@@ -4,7 +4,9 @@ import webpackMiddleware from "webpack-dev-middleware";
 import webpackHotMiddleware from "webpack-hot-middleware";
 // @ts-ignore TODO figure this out
 import webpackConfig from "../webpack.config.dev";
+// TODO figure out why absolute imports aren't working here
 import api from "./api";
+import { API_PATH } from "../shared/types/api";
 
 const PORT = process.env.PORT;
 
@@ -22,7 +24,7 @@ app.use(
   })
 );
 
-app.use("/api", api);
+app.use(API_PATH, api);
 
 app.get("*", app.use(express.static("public")));
 
