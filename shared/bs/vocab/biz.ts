@@ -1,8 +1,8 @@
 import {
     WordClass,
-} from 'shared/types/bs/words';
-import { Vocabulary } from 'shared/types/bs/vocabulary';
-import { parseTemplate } from 'shared/bs/parser';
+} from '../../types/bs/words';
+import { Vocabulary } from '../../types/bs/vocabulary';
+import { parseTemplate } from '../../bs/parser';
 
 const BIZ_VOCAB : Vocabulary = {
     templates: [

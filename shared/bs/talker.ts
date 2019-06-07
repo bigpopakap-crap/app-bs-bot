@@ -2,9 +2,9 @@ import {
     Word,
     WordClass,
 } from '../types/bs/words';
-import { Vocabulary } from 'shared/types/bs/vocabulary';
-import { pickRandom } from 'shared/utils/arrays';
-import talk from 'shared/bs/talk';
+import { Vocabulary } from '../types/bs/vocabulary';
+import { pickRandom } from '../utils/arrays';
+import talk from '../bs/talk';
 
 export default class Talker {
     vocab: Vocabulary;

@@ -1,8 +1,8 @@
 import {
     WordClass,
-} from 'shared/types/bs/words';
-import { Vocabulary } from 'shared/types/bs/vocabulary';
-import { parseTemplate } from 'shared/bs/parser';
+} from '../../types/bs/words';
+import { Vocabulary } from '../../types/bs/vocabulary';
+import { parseTemplate } from '../parser';
 
 const SHAKESPEARE_VOCAB : Vocabulary = {
     templates: [

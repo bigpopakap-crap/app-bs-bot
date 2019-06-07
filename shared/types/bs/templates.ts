@@ -3,7 +3,7 @@ import {
     VerbTense,
     VerbPerson,
     NounPlurality
-} from 'shared/types/bs/words';
+} from './words';
 
 /* **************************************************************
                          PLACEHOLDERS

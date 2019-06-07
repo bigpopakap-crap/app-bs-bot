@@ -1,14 +1,30 @@
+import { VocabName } from "shared/bs/vocab";
+
 export const API_PATH = "/api";
 
 export interface MyApi {
-  "/": {
+  /* ************************************************************************
+                           RANDOMLY GENERATE B.S.
+   ************************************************************************ */
+  "/bs": {
     GET: {
       query: {
-        input: string;
+        vocab: VocabName
       };
       response: {
-        output: string;
+        bs: string
       };
     };
-  };
+  },
+
+  /* ************************************************************************
+                           SEE WHAT VOCABS ARE AVAILABLE
+   ************************************************************************ */
+  "/vocab": {
+    GET: {
+      response: {
+        vocabs: Array<VocabName>
+      }
+    }
+  }
 }

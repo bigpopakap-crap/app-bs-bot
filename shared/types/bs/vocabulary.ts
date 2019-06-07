@@ -3,8 +3,8 @@ import {
     Adjective,
     Adverb,
     Noun
-} from 'shared/types/bs/words';
-import { Template } from 'shared/types/bs/templates';
+} from './words';
+import { Template } from './templates';
 
 export interface Vocabulary {
     templates: Array<Template>,

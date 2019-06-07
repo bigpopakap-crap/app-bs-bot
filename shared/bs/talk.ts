@@ -7,7 +7,7 @@ import {
     WordId,
     isPlaceholder,
 } from '../types/bs/templates';
-import { formatWord } from 'shared/bs/formatter';
+import { formatWord } from './formatter';
 
 type WordMap = Map<WordId, Word<WordClass>>;
 type WordProvider = <T extends WordClass>(wordClass: T) => Word<T>;
