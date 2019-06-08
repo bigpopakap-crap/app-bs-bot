@@ -1,7 +1,6 @@
 import * as React from "react";
 
-import axios from "restyped-axios";
-import { API_PATH, MyApi } from "shared/types/api";
+import api from './utils/api';
 import {VocabName} from "shared/bs/vocab";
 
 interface Props {
@@ -11,8 +10,6 @@ interface Props {
 interface State {
   bsOutput: string;
 }
-
-const client = axios.create<MyApi>({ baseURL: API_PATH });
 
 const LOADING_TEXT = 'Loading...';
 
@@ -34,23 +31,21 @@ export default class BSTalker extends React.Component<Props, State> {
       bsOutput: LOADING_TEXT
     });
 
-    client
-        .request({
-          url: "/bs",
-          params: {
-            vocab: this.props.vocabName
-          }
-        })
-        .then(response => {
-          this.setState({
-            bsOutput: response.data.bs
-          });
-        })
-        .catch(error => {
-          this.setState({
+    api.request({
+      url: "/bs",
+      params: {
+        vocabName: this.props.vocabName
+      }
+    })
+    .then(response => {
+      this.setState({
+        bsOutput: response.data.bs
+      });
+    }, error => {
+        this.setState({
             bsOutput: error.toString()
-          });
         });
+    });
   }
 
   render() {

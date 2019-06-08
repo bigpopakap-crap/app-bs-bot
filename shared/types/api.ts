@@ -9,7 +9,7 @@ export interface MyApi {
   "/bs": {
     GET: {
       query: {
-        vocab: VocabName
+        vocabName: VocabName
       };
       response: {
         bs: string
@@ -20,10 +20,10 @@ export interface MyApi {
   /* ************************************************************************
                            SEE WHAT VOCABS ARE AVAILABLE
    ************************************************************************ */
-  "/vocab": {
+  "/vocabName": {
     GET: {
       response: {
-        vocabs: Array<VocabName>
+        vocabNames: Array<VocabName>
       }
     }
   }
