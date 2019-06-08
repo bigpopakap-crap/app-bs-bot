@@ -26,7 +26,7 @@ app.use(
 
 app.use(API_PATH, api);
 
-app.get("*", app.use(express.static("public")));
+app.use(express.static("public"));
 
 app.listen(PORT, () => {
   console.log(`🚀 Server listening on port ${PORT}.`);
