@@ -2,7 +2,7 @@ import {
     WordClass,
 } from '../../types/bs/words';
 import { Vocabulary } from '../../types/bs/vocabulary';
-import { parseTemplate } from '../../bs/parser';
+import { parseTemplate } from '../parser';
 
 const BIZ_VOCAB : Vocabulary = {
     templates: [

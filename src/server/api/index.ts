@@ -1,6 +1,6 @@
 import express from "express";
 import RestypedRouter from "restyped-express-async";
-import { MyApi } from "shared/types/api";
+import { MyApi } from "../../shared/types/api";
 
 // TODO figure out why absolute path imports aren't working here
 import talk from '../../shared/bs/talk';

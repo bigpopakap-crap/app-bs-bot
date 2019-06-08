@@ -6,7 +6,7 @@ module.exports = {
   mode: "development",
   entry: [
     "webpack-hot-middleware/client",
-    path.join(__dirname, "client/index.tsx")
+    path.join(__dirname, "src/client/index.tsx")
   ],
   output: {
     filename: "bundle.js",

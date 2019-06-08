@@ -3,7 +3,7 @@
   "private": true,
   "description": "typescript, express, react starter with a shared client/server directory. This version also includes axios and restypes for nice Typescript-typed APIs.",
   "scripts": {
-    "start": "nodemon --watch server --exec babel-node --  --extensions .ts server/index.ts"
+    "start": "nodemon --watch src/server --exec babel-node --  --extensions .ts src/server/index.ts"
   },
   "dependencies": {
     "@babel/node": "7.2.2",
