@@ -3,16 +3,20 @@ import RestypedRouter from "restyped-express-async";
 import { MyApi } from "shared/types/api";
 
 // TODO figure out why absolute path imports aren't working here
-import Talker from '../../shared/bs/talker';
+import talk from '../../shared/bs/talk';
+import { randomWordProvider} from "../../shared/bs/word-provider";
 import VOCABS, {VocabName} from '../../shared/bs/vocab';
+import {pickRandom} from "../../shared/utils/arrays";
 
 const app = express();
 const router = RestypedRouter<MyApi>(app);
 
 router.get("/bs", async request => {
   const vocabName = request.query.vocabName;
+  const vocab = VOCABS.get(vocabName);
+  const template = pickRandom(vocab.templates);
   return {
-    bs: new Talker(VOCABS.get(vocabName)).talk()
+    bs: talk(template, randomWordProvider(vocab))
   };
 });
 

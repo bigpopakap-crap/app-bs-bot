@@ -8,9 +8,9 @@ import {
     isPlaceholder,
 } from '../types/bs/templates';
 import { formatWord } from './formatter';
+import {WordProvider} from "./word-provider";
 
 type WordMap = Map<WordId, Word<WordClass>>;
-type WordProvider = <T extends WordClass>(wordClass: T) => Word<T>;
 
 /**
  * Fills in words in the given template.
