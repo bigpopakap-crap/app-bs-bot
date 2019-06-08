@@ -6,25 +6,90 @@ export interface MyApi {
   /* ************************************************************************
                            RANDOMLY GENERATE B.S.
    ************************************************************************ */
-  "/bs": {
+  "/bs/:vocabId": {
     GET: {
-      query: {
-        vocabName: VocabName
-      };
+      params: {
+        vocabId: string
+      }
       response: {
+        // TODO more vocab metadata?
+        vocabId: string,
         bs: string
       };
     };
   },
 
   /* ************************************************************************
-                           SEE WHAT VOCABS ARE AVAILABLE
+                                    VOCABULARIES
    ************************************************************************ */
-  "/vocabName": {
+  "/vocab": {
     GET: {
+        query: {
+            // TODO paging params, etc.
+            // TODO filter params, etc.
+        },
       response: {
-        vocabNames: Array<VocabName>
+        ids: Array<String>
       }
     }
-  }
+  },
+
+  "/vocab/:vocabId": {
+    GET: {
+      params: {
+        vocabId: string
+      },
+      response: {
+          // TODO details of the vocab
+      }
+    }
+  },
+
+    /* ************************************************************************
+                                    TEMPLATES
+   ************************************************************************ */
+
+    "/template": {
+        GET: {
+            query: {
+                // TODO paging params, etc.
+                // TODO filter params, etc.
+            },
+            response:  {
+                // TODO list the word ids, or the word itself
+            }
+        }
+    },
+
+    "template/:templateId": {
+        GET: {
+            response:  {
+                // TODO get the details of a word
+            }
+        }
+    },
+
+    /* ************************************************************************
+                                    WORDS
+   ************************************************************************ */
+
+    "/word": {
+        GET: {
+            query: {
+                // TODO paging params, etc.
+                // TODO filter params, etc.
+            },
+            response:  {
+                // TODO list the word ids, or the word itself
+            }
+        }
+    },
+
+    "word/:wordId": {
+        GET: {
+            response:  {
+                // TODO get the details of a word
+            }
+        }
+    },
 }
