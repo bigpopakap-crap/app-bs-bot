@@ -1,15 +1,15 @@
 import express from "express";
 import RestypedRouter from "restyped-express-async";
-import { MyApi } from "../../shared/types/api";
+import BsBotApi from "../shared/types/bs-bot-api-restyped";
 
 // TODO figure out why absolute path imports aren't working here
-import talk from '../../shared/bs/talk';
-import { randomWordProvider} from "../../shared/bs/word-provider";
-import VOCABS, {VocabName} from '../../shared/bs/vocab';
-import {pickRandom} from "../../shared/utils/arrays";
+import talk from '../shared/bs/talk';
+import { randomWordProvider} from "../shared/bs/word-provider";
+import VOCABS, {VocabName} from '../shared/vocab';
+import {pickRandom} from "../shared/utils/arrays";
 
 const app = express();
-const router = RestypedRouter<MyApi>(app);
+const router = RestypedRouter<BsBotApi>(app);
 
 router.get("/bs", async request => {
   const vocabName = request.query.vocabName;

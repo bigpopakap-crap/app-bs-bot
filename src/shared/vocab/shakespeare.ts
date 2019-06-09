@@ -1,13 +1,13 @@
 import {
     WordClass,
-} from '../../types/bs/words';
-import { Vocabulary } from '../../types/bs/vocabulary';
-import { parseTemplate } from '../parser';
+} from '../types/words';
+import { Vocabulary } from '../types/vocabulary';
+import { parseTemplate } from '../bs/parser';
 
-const BIZ_VOCAB : Vocabulary = {
+const SHAKESPEARE_VOCAB : Vocabulary = {
     templates: [
-        parseTemplate('Merchants hire Square to {1:verb:base} {2:adjective} {3:noun:plural}. These {2:adjective} {3:noun:plural} will be {1:verb:present:participle} using blockchain.'),
-        parseTemplate('Shall we sync up offline about {1:verb:progressive} a chat app?'),
+        parseTemplate('Zounds! Thou shalt not {1:verb:base} {2:adjective} {3:noun:plural}!'),
+        parseTemplate('Lo and behold, ye nave! You {1:verb:base} {2:adverb}!'),
     ],
     verbs: [
         {
@@ -48,22 +48,22 @@ const BIZ_VOCAB : Vocabulary = {
     adjectives: [
         {
             class: WordClass.adjective,
-            base: 'remarkable',
+            base: 'boorish',
         }
     ],
     adverbs: [
         {
             class: WordClass.adverb,
-            base: 'remarkably',
+            base: 'boorishly',
         }
     ],
     nouns: [
         {
             class: WordClass.noun,
-            singular: 'solution',
-            plural: 'solutions',
+            singular: 'scoundrel',
+            plural: 'scoundrels',
         }
     ]
-}
+};
 
-export default BIZ_VOCAB;
+export default SHAKESPEARE_VOCAB;

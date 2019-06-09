@@ -1,12 +1,12 @@
 import {
     Word,
     WordClass,
-} from '../types/bs/words';
+} from '../types/words';
 import {
     Template,
     WordId,
     isPlaceholder,
-} from '../types/bs/templates';
+} from '../types/templates';
 import { formatWord } from './formatter';
 import {WordProvider} from "./word-provider";
 

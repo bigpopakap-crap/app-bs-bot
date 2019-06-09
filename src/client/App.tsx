@@ -1,8 +1,8 @@
 import * as React from "react";
 import {hot} from "react-hot-loader/root";
 
-import api from './utils/api';
-import {VocabName} from "../shared/bs/vocab";
+import bsBotClient from './utils/bs-bot-client';
+import {VocabName} from "../shared/vocab";
 
 import BSTalker from "./BSTalker";
 
@@ -27,7 +27,7 @@ class App extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-      api.request({
+      bsBotClient.request({
           url: '/vocabName'
       })
       .then(response => {

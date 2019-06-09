@@ -4,7 +4,7 @@ import {
     isTensePersonIndependent,
     VerbPerson,
     NounPlurality,
-} from '../types/bs/words';
+} from '../types/words';
 import {
     Template,
     WordId,
@@ -13,7 +13,7 @@ import {
     AdjectivePlaceholder,
     AdverbPlaceholder,
     NounPlaceholder,
-} from '../types/bs/templates';
+} from '../types/templates';
 
 /**
  * Used to split the raw string into {@link }

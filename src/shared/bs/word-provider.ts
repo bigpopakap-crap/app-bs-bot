@@ -1,5 +1,5 @@
-import {Word, WordClass} from "../types/bs/words";
-import {Vocabulary} from "../types/bs/vocabulary";
+import {Word, WordClass} from "../types/words";
+import {Vocabulary} from "../types/vocabulary";
 import {pickRandom} from "../utils/arrays";
 
 export type WordProvider = <T extends WordClass>(wordClass: T) => Word<T>;

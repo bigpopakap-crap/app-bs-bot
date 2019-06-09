@@ -1,7 +1,7 @@
 import * as React from "react";
 
-import api from './utils/api';
-import {VocabName} from "shared/bs/vocab";
+import bsBotClient from './utils/bs-bot-client';
+import {VocabName} from "shared/vocab";
 
 interface Props {
   vocabName: VocabName;
@@ -31,7 +31,7 @@ export default class BSTalker extends React.Component<Props, State> {
       bsOutput: LOADING_TEXT
     });
 
-    api.request({
+    bsBotClient.request({
       url: "/bs",
       params: {
         vocabName: this.props.vocabName

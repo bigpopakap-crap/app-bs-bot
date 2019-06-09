@@ -6,7 +6,7 @@ import webpackHotMiddleware from "webpack-hot-middleware";
 import webpackConfig from "../../webpack.config.dev";
 // TODO figure out why absolute imports aren't working here
 import api from "./api";
-import { API_PATH } from "../shared/types/api";
+import {API_PATH} from "../shared/constants";
 
 const PORT = process.env.PORT || 3000;
 

@@ -9,7 +9,7 @@ import {
     Verb, VerbTense,
     Word,
     WordClass
-} from '../types/bs/words';
+} from '../types/words';
 import {
     AdjectivePlaceholder,
     AdverbPlaceholder,
@@ -20,7 +20,7 @@ import {
     NounPlaceholder,
     Placeholder,
     VerbPlaceholder,
-} from '../types/bs/templates';
+} from '../types/templates';
 
 export function formatWord<T extends WordClass>(placeholder: Placeholder<T>, word: Word<T>) : string {
     if (isVerbPlaceholder(placeholder) && isVerb(word)) {

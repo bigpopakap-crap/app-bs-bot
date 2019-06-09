@@ -1,4 +1,4 @@
-import { Vocabulary } from 'shared/types/bs/vocabulary';
+import { Vocabulary } from 'shared/types/vocabulary';
 import BIZ_VOCAB from './biz';
 import SHAKESPEARE_VOCAB from './shakespeare';
 
