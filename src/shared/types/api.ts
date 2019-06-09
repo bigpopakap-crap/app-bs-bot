@@ -1,5 +1,3 @@
-import { VocabName } from "shared/bs/vocab";
-
 export const API_PATH = "/api";
 
 export interface MyApi {
