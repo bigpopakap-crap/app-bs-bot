@@ -3,8 +3,8 @@ import RestypedRouter from "restyped-express-async";
 import BsBotApi from "../shared/types/bs-bot-api-restyped";
 
 // TODO figure out why absolute path imports aren't working here
-import talk from '../shared/bs/talk';
-import { randomWordProvider} from "../shared/bs/word-provider";
+import { fillTemplate } from '../shared/bs';
+import { randomWordProvider} from "../shared/bs";
 import VOCABS, {VocabName} from '../shared/vocab';
 import {pickRandom} from "../shared/utils/arrays";
 
@@ -16,7 +16,7 @@ router.get("/bs", async request => {
   const vocab = VOCABS.get(vocabName);
   const template = pickRandom(vocab.templates);
   return {
-    bs: talk(template, randomWordProvider(vocab))
+    bs: fillTemplate(template, randomWordProvider(vocab))
   };
 });
 

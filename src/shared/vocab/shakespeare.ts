@@ -2,7 +2,7 @@ import {
     WordClass,
 } from '../types/words';
 import { Vocabulary } from '../types/vocabulary';
-import { parseTemplate } from '../bs/parser';
+import { parseTemplate } from '../bs';
 
 const SHAKESPEARE_VOCAB : Vocabulary = {
     templates: [
