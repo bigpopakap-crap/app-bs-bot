@@ -5,6 +5,7 @@ import bsBotClient from './utils/bs-bot-client';
 import {VocabName} from "../shared/vocab";
 
 import BSTalker from "./BSTalker";
+import ApiExplorer from "./ApiExplorer";
 
 interface Props {}
 interface State {
@@ -60,8 +61,14 @@ class App extends React.Component<Props, State> {
 
     return (
       <div>
-        <h1>B.S. Bot</h1>
-        {content}
+          <div>
+            <h1>B.S. Bot</h1>
+            {content}
+          </div>
+          <div>
+              <h2>API Explorer</h2>
+              <ApiExplorer/>
+          </div>
       </div>
     );
   }

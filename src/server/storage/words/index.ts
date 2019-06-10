@@ -26,7 +26,8 @@ export default class implements WordsStorage<WordClass> {
     get(id: StorageRowId) : Optional<StoredObject<WordMetadata<WordClass>>> {
         const results =  this.allStoragesWithClass
             .map(storageAndClass => storageAndClass.storage)
-            .map(storage => storage.get(id));
+            .map(storage => storage.get(id))
+            .filter(optionalWord => Boolean(optionalWord));
 
         if (results.length > 1) {
             throw new Error(`Word with id=${id} showed up in multiple tables! This should never happen`);

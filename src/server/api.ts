@@ -32,8 +32,13 @@ router.get('/vocabName', async request => {
 /* ************************************************************************
                             INTERACT WITH WORDS
  ************************************************************************ */
-router.get('/word/:id', async request => {
-  return wordStorage.get(request.params.id);
+router.get('/word/:id', async (request, response) => {
+  const word = wordStorage.get(request.params.id);
+  if (word) {
+    return word;
+  } else {
+    response.status(HttpStatus.NOT_FOUND).end();
+  }
 });
 
 router.put('/word/:id', async (request, response) =>  {

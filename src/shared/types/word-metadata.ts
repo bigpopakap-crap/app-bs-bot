@@ -17,6 +17,7 @@ export interface WordQuery {
 }
 
 export interface WordMetadata<T extends WordClass> {
+    // TODO "forms" should be an internal database detail
     forms: Array<string>,
     tags: Array<WordTag>,
     isNSFW: boolean,
