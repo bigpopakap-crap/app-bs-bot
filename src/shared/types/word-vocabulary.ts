@@ -4,9 +4,9 @@ import {
     Adverb,
     Noun
 } from './words';
-import { Template } from './templates';
+import { Template } from './word-templates';
 
-export interface Vocabulary {
+export interface WordVocabulary {
     templates: Array<Template>,
     verbs: Array<Verb>,
     adjectives: Array<Adjective>,

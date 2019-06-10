@@ -13,7 +13,7 @@ import {
     AdjectivePlaceholder,
     AdverbPlaceholder,
     NounPlaceholder,
-} from '../types/templates';
+} from '../types/word-templates';
 
 /**
  * Used to split the raw string into {@link }

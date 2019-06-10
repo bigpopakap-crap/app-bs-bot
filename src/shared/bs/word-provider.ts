@@ -1,10 +1,10 @@
 import {Word, WordClass} from "../types/words";
-import {Vocabulary} from "../types/vocabulary";
+import {WordVocabulary} from "../types/word-vocabulary";
 import randomItem from 'random-item';
 
 export type WordProvider = <T extends WordClass>(wordClass: T) => Word<T>;
 
-export function randomWordProvider(vocab: Vocabulary): WordProvider {
+export function randomWordProvider(vocab: WordVocabulary): WordProvider {
     // TODO remove this type casting and figure out how to get Typescript to be ok with generics here
     return <WordProvider> ((wordClass) => {
         switch (wordClass) {

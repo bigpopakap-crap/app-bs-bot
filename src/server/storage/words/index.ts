@@ -1,7 +1,7 @@
 import {SearchQuery, WordMetadata, WordsStorage} from "../types/words-storage";
 import {WordClass} from "../../../shared/types/words";
 import WordsMemoryStorage from './words-memory-storage';
-import {ExistingStorageObject, NewStorageObject, StorageRowId} from "../types/storage";
+import {ExistingStorageObject, NewStorageObject, StorageRowId} from "../../../shared/types/storage";
 import {Optional} from "../../../shared/utils/optional";
 import randomItem = require("random-item");
 

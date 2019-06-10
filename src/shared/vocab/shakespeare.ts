@@ -1,10 +1,10 @@
 import {
     WordClass,
 } from '../types/words';
-import { Vocabulary } from '../types/vocabulary';
+import { WordVocabulary } from '../types/word-vocabulary';
 import { parseTemplate } from '../bs';
 
-const SHAKESPEARE_VOCAB : Vocabulary = {
+const SHAKESPEARE_VOCAB : WordVocabulary = {
     templates: [
         parseTemplate('Zounds! Thou shalt not {1:verb:base} {2:adjective} {3:noun:plural}!'),
         parseTemplate('Lo and behold, ye nave! You {1:verb:base} {2:adverb}!'),

@@ -1,10 +1,10 @@
 import {
     WordClass,
 } from '../types/words';
-import { Vocabulary } from '../types/vocabulary';
+import { WordVocabulary } from '../types/word-vocabulary';
 import { parseTemplate } from '../bs';
 
-const BIZ_VOCAB : Vocabulary = {
+const BIZ_VOCAB : WordVocabulary = {
     templates: [
         parseTemplate('Merchants hire Square to {1:verb:base} {2:adjective} {3:noun:plural}. These {2:adjective} {3:noun:plural} will be {1:verb:present:participle} using blockchain.'),
         parseTemplate('Shall we sync up offline about {1:verb:progressive} a chat app?'),

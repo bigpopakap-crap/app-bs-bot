@@ -6,7 +6,7 @@ import {
     Template,
     WordId,
     isPlaceholder,
-} from '../types/templates';
+} from '../types/word-templates';
 import { formatWord } from './word-formatter';
 import {WordProvider} from "./word-provider";
 

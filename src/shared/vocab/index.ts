@@ -1,4 +1,4 @@
-import { Vocabulary } from 'shared/types/vocabulary';
+import { WordVocabulary } from 'shared/types/word-vocabulary';
 import BIZ_VOCAB from './biz';
 import SHAKESPEARE_VOCAB from './shakespeare';
 
@@ -7,7 +7,7 @@ export enum VocabName {
     shakespeare = 'shakespeare',
 }
 
-const VOCABS : Map<VocabName, Vocabulary> = new Map<VocabName, Vocabulary>([
+const VOCABS : Map<VocabName, WordVocabulary> = new Map<VocabName, WordVocabulary>([
     [VocabName.biz, BIZ_VOCAB],
     [VocabName.shakespeare, SHAKESPEARE_VOCAB]
 ]);

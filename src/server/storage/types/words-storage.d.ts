@@ -1,4 +1,4 @@
-import {ExistingStorageObject, NewStorageObject, StorageRowId} from "./storage";
+import {ExistingStorageObject, NewStorageObject, StorageRowId} from "../../../shared/types/storage";
 import {Optional} from "../../../shared/utils/optional";
 import {Word, WordClass} from "../../../shared/types/words";
 

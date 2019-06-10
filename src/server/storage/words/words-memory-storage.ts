@@ -3,7 +3,7 @@ import {
     WordMetadata,
     WordsStorage
 } from "../types/words-storage";
-import {ExistingStorageObject, NewStorageObject, StorageRowId} from "../types/storage";
+import {ExistingStorageObject, NewStorageObject, StorageRowId} from "../../../shared/types/storage";
 import {Optional} from "../../../shared/utils/optional";
 import uuid from 'uuid/v4';
 import randomItem from 'random-item';

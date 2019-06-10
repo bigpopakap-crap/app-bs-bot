@@ -20,7 +20,7 @@ import {
     NounPlaceholder,
     Placeholder,
     VerbPlaceholder,
-} from '../types/templates';
+} from '../types/word-templates';
 
 export function formatWord<T extends WordClass>(placeholder: Placeholder<T>, word: Word<T>) : string {
     if (isVerbPlaceholder(placeholder) && isVerb(word)) {
