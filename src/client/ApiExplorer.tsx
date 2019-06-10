@@ -16,6 +16,30 @@ export default class ApiExplorer extends React.Component<Props, State> {
     }
 
     async createWord(word: WordMetadata<WordClass>) {
+        /*
+            bsBotApi.createWord({
+                forms: ['build', 'building', 'built'],
+                tags: ['creation'],
+                isNSFW: false,
+                value: {
+                    class: 'verb',
+                    base: 'build',
+                    progressive: 'building',
+                    present: {
+                        first: 'build',
+                        second: 'build',
+                        third: 'builds',
+                        participle: 'built',
+                    },
+                    past: {
+                        first: 'built',
+                        second: 'built',
+                        third: 'built',
+                        participle: 'built',
+                    }
+                }
+            });
+         */
         return await bsBotClient.request({
             method: 'POST',
             url: '/word',

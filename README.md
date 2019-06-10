@@ -2,6 +2,10 @@
 
 ## To do
 
+- Add Typescript JSON validation for the API
+  - https://github.com/mojotech/json-type-validation/tree/master/docs
+  - https://github.com/typestack/class-validator#installation
+  - https://medium.com/@ottoki/runtime-type-checking-with-io-ts-in-typescript-14465169fb02
 - Put these dictionaries into a database
 - Combine adjectives and adverbs into one object
 - Add exclamations, proper nouns

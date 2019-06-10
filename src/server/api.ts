@@ -6,12 +6,14 @@ import HttpStatus from 'http-status-codes';
 import {fillTemplate, randomWordProvider} from '../shared/bs';
 import VOCABS, {VocabName} from '../shared/vocab';
 import randomItem from 'random-item';
+import bodyParser from 'body-parser';
 
 import WordStorage from './storage/words';
 
 const wordStorage = new WordStorage();
 
 const app = express();
+app.use(bodyParser.json());
 const router = RestypedRouter<BsBotApi>(app);
 
 router.get("/bs", async request => {
@@ -57,6 +59,7 @@ router.delete('/word/:id', async request => {
 });
 
 router.post('/word', async request => {
+  JSON.stringify(request.body);
   return wordStorage.insert(request.body);
 });
 
