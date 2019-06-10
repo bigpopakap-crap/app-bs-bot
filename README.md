@@ -3,6 +3,7 @@
 ## To do
 
 - Put these dictionaries into a database
+- Combine adjectives and adverbs into one object
 - Add exclamations, proper nouns
 - Add tags to words (ex. {2:noun#insult#band}), and templates (ex. "tagline", "paragraph", "insult", etc.)
 

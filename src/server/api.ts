@@ -6,7 +6,7 @@ import BsBotApi from "../shared/types/bs-bot-api-restyped";
 import { fillTemplate } from '../shared/bs';
 import { randomWordProvider} from "../shared/bs";
 import VOCABS, {VocabName} from '../shared/vocab';
-import {pickRandom} from "../shared/utils/arrays";
+import randomItem from 'random-item';
 
 const app = express();
 const router = RestypedRouter<BsBotApi>(app);
@@ -14,7 +14,7 @@ const router = RestypedRouter<BsBotApi>(app);
 router.get("/bs", async request => {
   const vocabName = request.query.vocabName;
   const vocab = VOCABS.get(vocabName);
-  const template = pickRandom(vocab.templates);
+  const template = randomItem(vocab.templates);
   return {
     bs: fillTemplate(template, randomWordProvider(vocab))
   };
