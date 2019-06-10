@@ -1,29 +1,7 @@
 import {StoredObject, UnstoredObject, StorageRowId} from "../../../shared/types/storage";
 import {Optional} from "../../../shared/utils/optional";
-import {Word, WordClass} from "../../../shared/types/words";
-
-type PageStart = string;
-type PageEnd = string;
-type WordTag = string;
-
-export interface PagingQuery {
-    start?: PageStart,
-    end?: PageEnd,
-}
-
-export interface SearchQuery {
-    searchText?: string,
-    wordClass?: WordClass,
-    tags?: Array<WordTag>,
-    noNSFW?: boolean,
-}
-
-export interface WordMetadata<T extends WordClass> {
-    forms: Array<string>,
-    tags: Array<WordTag>,
-    isNSFW: boolean,
-    value: Word<T>
-}
+import {WordClass} from "../../../shared/types/words";
+import {WordQuery, WordMetadata} from "../../../shared/types/word-metadata";
 
 export interface WordsStorage<T extends WordClass> {
     get: (id: StorageRowId) => Optional<StoredObject<WordMetadata<T>>>,
@@ -39,7 +17,7 @@ export interface WordsStorage<T extends WordClass> {
     deleteAll: (ids: Array<StorageRowId>) => void,
 
     // TODO that would be cool if we could make the return type match the wordClass query param, if provided
-    search: (query: SearchQuery) => Array<StoredObject<WordMetadata<T>>>,
-    random: (query: SearchQuery) => Optional<StoredObject<WordMetadata<T>>>,
-    randomAll: (queries: Array<SearchQuery>) => Array<Optional<StoredObject<WordMetadata<T>>>>
+    search: (query: WordQuery) => Array<StoredObject<WordMetadata<T>>>,
+    random: (query: WordQuery) => Optional<StoredObject<WordMetadata<T>>>,
+    randomAll: (queries: Array<WordQuery>) => Array<Optional<StoredObject<WordMetadata<T>>>>
 }

@@ -1,6 +1,4 @@
 import {
-    SearchQuery,
-    WordMetadata,
     WordsStorage
 } from "../types/words-storage";
 import {StoredObject, UnstoredObject, StorageRowId} from "../../../shared/types/storage";
@@ -10,6 +8,7 @@ import randomItem from 'random-item';
 import {WordClass} from "../../../shared/types/words";
 // @ts-ignore
 import intersect from 'intersect';
+import {WordQuery, WordMetadata} from "../../../shared/types/word-metadata";
 
 export default class <T extends WordClass> implements WordsStorage<T> {
     rows: Array<StoredObject<WordMetadata<T>>>;
@@ -68,7 +67,7 @@ export default class <T extends WordClass> implements WordsStorage<T> {
         ids.forEach(id => this.delete(id));
     }
 
-    search(query: SearchQuery) : Array<StoredObject<WordMetadata<T>>> {
+    search(query: WordQuery) : Array<StoredObject<WordMetadata<T>>> {
         // searchText?: string,
         // wordClass?: WordClass,
         // tags?: Array<WordTag>,
@@ -87,11 +86,11 @@ export default class <T extends WordClass> implements WordsStorage<T> {
             ).length > 0);
     }
 
-    random(query: SearchQuery) : Optional<StoredObject<WordMetadata<T>>> {
+    random(query: WordQuery) : Optional<StoredObject<WordMetadata<T>>> {
         return randomItem(this.search(query));
     }
 
-    randomAll(queries: Array<SearchQuery>) : Array<Optional<StoredObject<WordMetadata<T>>>> {
+    randomAll(queries: Array<WordQuery>) : Array<Optional<StoredObject<WordMetadata<T>>>> {
         return queries.map(query => this.random(query));
     }
 

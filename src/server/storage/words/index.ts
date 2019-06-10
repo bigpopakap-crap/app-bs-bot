@@ -1,9 +1,10 @@
-import {SearchQuery, WordMetadata, WordsStorage} from "../types/words-storage";
+import {WordsStorage} from "../types/words-storage";
 import {WordClass} from "../../../shared/types/words";
 import WordsMemoryStorage from './words-memory-storage';
 import {StoredObject, UnstoredObject, StorageRowId} from "../../../shared/types/storage";
 import {Optional} from "../../../shared/utils/optional";
 import randomItem = require("random-item");
+import {WordQuery, WordMetadata} from "../../../shared/types/word-metadata";
 
 interface StorageAndClass {
     wordClass: WordClass,
@@ -117,18 +118,18 @@ export default class implements WordsStorage<WordClass> {
             .forEach(storage => storage.deleteAll(ids));
     }
 
-    search(query: SearchQuery) : Array<StoredObject<WordMetadata<WordClass>>> {
+    search(query: WordQuery) : Array<StoredObject<WordMetadata<WordClass>>> {
         return this.allStoragesWithClass
             .map(storageAndClass => storageAndClass.storage)
             .map(storage => storage.search(query))
             .reduce((acc, cur) => acc.concat(cur), []);
     }
 
-    random(query: SearchQuery) : Optional<StoredObject<WordMetadata<WordClass>>> {
+    random(query: WordQuery) : Optional<StoredObject<WordMetadata<WordClass>>> {
         return randomItem(this.search(query));
     }
 
-    randomAll(queries: Array<SearchQuery>) : Array<Optional<StoredObject<WordMetadata<WordClass>>>> {
+    randomAll(queries: Array<WordQuery>) : Array<Optional<StoredObject<WordMetadata<WordClass>>>> {
         return queries.map(query => this.random(query));
     }
 
