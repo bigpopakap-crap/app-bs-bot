@@ -59,7 +59,6 @@ router.delete('/word/:id', async request => {
 });
 
 router.post('/word', async request => {
-  JSON.stringify(request.body);
   return wordStorage.insert(request.body);
 });
 
