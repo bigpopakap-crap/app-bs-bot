@@ -1,8 +1,8 @@
 export type StorageRowId = string;
 
-export type NewStorageObject<T> = T;
+export type UnstoredObject<T> = T;
 
-export interface ExistingStorageObject<T> {
+export interface StoredObject<T> {
     id: StorageRowId,
     value: T
 }

@@ -1,7 +1,7 @@
 import {SearchQuery, WordMetadata, WordsStorage} from "../types/words-storage";
 import {WordClass} from "../../../shared/types/words";
 import WordsMemoryStorage from './words-memory-storage';
-import {ExistingStorageObject, NewStorageObject, StorageRowId} from "../../../shared/types/storage";
+import {StoredObject, UnstoredObject, StorageRowId} from "../../../shared/types/storage";
 import {Optional} from "../../../shared/utils/optional";
 import randomItem = require("random-item");
 
@@ -22,7 +22,7 @@ export default class implements WordsStorage<WordClass> {
         }));
     }
 
-    get(id: StorageRowId) : Optional<ExistingStorageObject<WordMetadata<WordClass>>> {
+    get(id: StorageRowId) : Optional<StoredObject<WordMetadata<WordClass>>> {
         const results =  this.allStoragesWithClass
             .map(storageAndClass => storageAndClass.storage)
             .map(storage => storage.get(id));
@@ -36,7 +36,7 @@ export default class implements WordsStorage<WordClass> {
         }
     }
 
-    getAll(ids: Array<StorageRowId>) : Array<Optional<ExistingStorageObject<WordMetadata<WordClass>>>> {
+    getAll(ids: Array<StorageRowId>) : Array<Optional<StoredObject<WordMetadata<WordClass>>>> {
         const foundWords =  this.allStoragesWithClass
             .map(storageAndClass => storageAndClass.storage)
             .map(storage => storage.getAll(ids))
@@ -46,7 +46,7 @@ export default class implements WordsStorage<WordClass> {
             .filter(optionalWord => Boolean(optionalWord))
 
         // Map the foundWords by their ids
-        const foundWordsById = new Map<StorageRowId, Optional<ExistingStorageObject<WordMetadata<WordClass>>>>(
+        const foundWordsById = new Map<StorageRowId, Optional<StoredObject<WordMetadata<WordClass>>>>(
             foundWords.map(foundWord => [foundWord.id, foundWord])
         );
 
@@ -54,7 +54,7 @@ export default class implements WordsStorage<WordClass> {
         return ids.map(id => foundWordsById.has(id) ? foundWordsById.get(id) : null);
     }
 
-    insert(newObject: NewStorageObject<WordMetadata<WordClass>>) : ExistingStorageObject<WordMetadata<WordClass>> {
+    insert(newObject: UnstoredObject<WordMetadata<WordClass>>) : StoredObject<WordMetadata<WordClass>> {
         const insertedObjects = this.allStoragesWithClass
             .filter(storageAndClass => storageAndClass.wordClass === newObject.value.class)
             .map(storageAndClass => storageAndClass.storage)
@@ -75,13 +75,13 @@ export default class implements WordsStorage<WordClass> {
      * Note: this doesn't necessarily return them  in the same order
      * @param newObjects
      */
-    insertAll(newObjects: Array<NewStorageObject<WordMetadata<WordClass>>>) : Array<ExistingStorageObject<WordMetadata<WordClass>>> {
+    insertAll(newObjects: Array<UnstoredObject<WordMetadata<WordClass>>>) : Array<StoredObject<WordMetadata<WordClass>>> {
         return this.allStoragesWithClass
             .map(storageAndClass => storageAndClass.storage.insertAll(newObjects.filter(o => o.value.class === storageAndClass.wordClass)))
             .reduce((acc, cur) => acc.concat(cur), []);
     }
 
-    update(updatedObject: ExistingStorageObject<WordMetadata<WordClass>>) : void {
+    update(updatedObject: StoredObject<WordMetadata<WordClass>>) : void {
         // We can simply update in all tables without worrying about WordClass because
         // any table of the wrong wordClass will no-op pretty efficiently.
         this.allStoragesWithClass
@@ -89,7 +89,7 @@ export default class implements WordsStorage<WordClass> {
             .forEach(storage => storage.update(updatedObject));
     }
 
-    updateAll(updatedObjects: Array<ExistingStorageObject<WordMetadata<WordClass>>>) : void {
+    updateAll(updatedObjects: Array<StoredObject<WordMetadata<WordClass>>>) : void {
         // We can simply update in all tables without worrying about WordClass because
         // any table of the wrong wordClass will no-op pretty efficiently for any of the words
         // that don't exist in the table, and will do partial updates for the words that do
@@ -117,18 +117,18 @@ export default class implements WordsStorage<WordClass> {
             .forEach(storage => storage.deleteAll(ids));
     }
 
-    search(query: SearchQuery) : Array<ExistingStorageObject<WordMetadata<WordClass>>> {
+    search(query: SearchQuery) : Array<StoredObject<WordMetadata<WordClass>>> {
         return this.allStoragesWithClass
             .map(storageAndClass => storageAndClass.storage)
             .map(storage => storage.search(query))
             .reduce((acc, cur) => acc.concat(cur), []);
     }
 
-    random(query: SearchQuery) : Optional<ExistingStorageObject<WordMetadata<WordClass>>> {
+    random(query: SearchQuery) : Optional<StoredObject<WordMetadata<WordClass>>> {
         return randomItem(this.search(query));
     }
 
-    randomAll(queries: Array<SearchQuery>) : Array<Optional<ExistingStorageObject<WordMetadata<WordClass>>>> {
+    randomAll(queries: Array<SearchQuery>) : Array<Optional<StoredObject<WordMetadata<WordClass>>>> {
         return queries.map(query => this.random(query));
     }
 

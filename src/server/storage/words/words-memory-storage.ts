@@ -3,7 +3,7 @@ import {
     WordMetadata,
     WordsStorage
 } from "../types/words-storage";
-import {ExistingStorageObject, NewStorageObject, StorageRowId} from "../../../shared/types/storage";
+import {StoredObject, UnstoredObject, StorageRowId} from "../../../shared/types/storage";
 import {Optional} from "../../../shared/utils/optional";
 import uuid from 'uuid/v4';
 import randomItem from 'random-item';
@@ -12,21 +12,21 @@ import {WordClass} from "../../../shared/types/words";
 import intersect from 'intersect';
 
 export default class <T extends WordClass> implements WordsStorage<T> {
-    rows: Array<ExistingStorageObject<WordMetadata<T>>>;
+    rows: Array<StoredObject<WordMetadata<T>>>;
 
     constructor() {
         this.rows = [];
     }
 
-    get(id: StorageRowId) : Optional<ExistingStorageObject<WordMetadata<T>>> {
+    get(id: StorageRowId) : Optional<StoredObject<WordMetadata<T>>> {
         return this.rows.find(row => row.id === id);
     }
 
-    getAll(ids: Array<StorageRowId>) : Array<Optional<ExistingStorageObject<WordMetadata<T>>>> {
+    getAll(ids: Array<StorageRowId>) : Array<Optional<StoredObject<WordMetadata<T>>>> {
         return this.rows.filter(row => ids.includes(row.id));
     }
 
-    insert(newObject: NewStorageObject<WordMetadata<T>>) : ExistingStorageObject<WordMetadata<T>> {
+    insert(newObject: UnstoredObject<WordMetadata<T>>) : StoredObject<WordMetadata<T>> {
         const newObjectWithId = {
             id: uuid(),
             value: newObject
@@ -36,7 +36,7 @@ export default class <T extends WordClass> implements WordsStorage<T> {
         return newObjectWithId;
     }
 
-    insertAll(newObjects: Array<NewStorageObject<WordMetadata<T>>>) : Array<ExistingStorageObject<WordMetadata<T>>> {
+    insertAll(newObjects: Array<UnstoredObject<WordMetadata<T>>>) : Array<StoredObject<WordMetadata<T>>> {
         const newObjectsWithIds = newObjects.map(newObject => ({
             id: uuid(),
             value: newObject
@@ -46,14 +46,14 @@ export default class <T extends WordClass> implements WordsStorage<T> {
         return newObjectsWithIds;
     }
 
-    update(updatedObject: ExistingStorageObject<WordMetadata<T>>) : void {
+    update(updatedObject: StoredObject<WordMetadata<T>>) : void {
         const existingRow = this.get(updatedObject.id);
         if (existingRow) {
             existingRow.value = updatedObject.value;
         }
     }
 
-    updateAll(updatedObjects: Array<ExistingStorageObject<WordMetadata<T>>>) : void {
+    updateAll(updatedObjects: Array<StoredObject<WordMetadata<T>>>) : void {
         updatedObjects.forEach(updatedObject => this.update(updatedObject));
     }
 
@@ -68,7 +68,7 @@ export default class <T extends WordClass> implements WordsStorage<T> {
         ids.forEach(id => this.delete(id));
     }
 
-    search(query: SearchQuery) : Array<ExistingStorageObject<WordMetadata<T>>> {
+    search(query: SearchQuery) : Array<StoredObject<WordMetadata<T>>> {
         // searchText?: string,
         // wordClass?: WordClass,
         // tags?: Array<WordTag>,
@@ -87,11 +87,11 @@ export default class <T extends WordClass> implements WordsStorage<T> {
             ).length > 0);
     }
 
-    random(query: SearchQuery) : Optional<ExistingStorageObject<WordMetadata<T>>> {
+    random(query: SearchQuery) : Optional<StoredObject<WordMetadata<T>>> {
         return randomItem(this.search(query));
     }
 
-    randomAll(queries: Array<SearchQuery>) : Array<Optional<ExistingStorageObject<WordMetadata<T>>>> {
+    randomAll(queries: Array<SearchQuery>) : Array<Optional<StoredObject<WordMetadata<T>>>> {
         return queries.map(query => this.random(query));
     }
 
