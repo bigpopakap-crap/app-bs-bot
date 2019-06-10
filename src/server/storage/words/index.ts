@@ -3,7 +3,7 @@ import {WordClass} from "../../../shared/types/words";
 import WordsMemoryStorage from './words-memory-storage';
 import {StoredObject, UnstoredObject, StorageRowId} from "../../../shared/types/storage";
 import {Optional} from "../../../shared/utils/optional";
-import randomItem = require("random-item");
+import randomItem from 'random-item';
 import {WordQuery, WordMetadata} from "../../../shared/types/word-metadata";
 
 interface StorageAndClass {
