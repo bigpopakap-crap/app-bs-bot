@@ -6,10 +6,12 @@
   - https://github.com/mojotech/json-type-validation/tree/master/docs
   - https://github.com/typestack/class-validator#installation
   - https://medium.com/@ottoki/runtime-type-checking-with-io-ts-in-typescript-14465169fb02
-- Put these dictionaries into a database
+- Put these dictionaries into an actual SQL database
+- Add templates to the database and API
+- Add vocab listings to t he database and API
 - Combine adjectives and adverbs into one object
-- Add exclamations, proper nouns
-- Add tags to words (ex. {2:noun#insult#band}), and templates (ex. "tagline", "paragraph", "insult", etc.)
+- Add phrases (with different suggested tags), proper nouns (with associated types of pronouns)
+- Add tests
 
 # Starter kit
 
