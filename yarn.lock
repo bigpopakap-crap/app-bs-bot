@@ -2262,10 +2262,10 @@ escape-string-regexp@^1.0.5:
   resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
   integrity sha1-G2HAViGQqN/2rjuyzwIAyhMLhtQ=
 
-eslint-config-bigpopakap@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-bigpopakap/-/eslint-config-bigpopakap-0.1.0.tgz#6494d3533e116da84a5ee632023d04921f3f8cb6"
-  integrity sha512-6lQ5m+/k2VhitdIfFDhVHbXm5gXXSSh1utqER1ExhaXGtPnOAruuKS/UWkovkuuaUdQwfOqKPHiJF2Epu5sWSw==
+eslint-config-bigpopakap@latest:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/eslint-config-bigpopakap/-/eslint-config-bigpopakap-0.1.1.tgz#c41b9fd27f612fc3480fd0c1cd2032506bdc2333"
+  integrity sha512-HmoIceRhMk+D81q9Cyk43opktt9OwrricoxEeICiIQQMKCmIsmy0yZWxQjtxi1cHteZab4YDR+lXz2cGOU/5Tg==
 
 eslint-config-prettier@^4.3.0:
   version "4.3.0"
