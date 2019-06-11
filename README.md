@@ -2,16 +2,22 @@
 
 ## To do
 
+- Add templates to the database and API
+- Add vocab listings to the database and API
+- Combine adjectives and adverbs into one object
+- Put these dictionaries into an actual SQL database
+- Add phrases (with different suggested tags), proper nouns (with associated types of pronouns)
+- Add tests
 - Add Typescript JSON validation for the API
   - https://github.com/mojotech/json-type-validation/tree/master/docs
   - https://github.com/typestack/class-validator#installation
   - https://medium.com/@ottoki/runtime-type-checking-with-io-ts-in-typescript-14465169fb02
-- Put these dictionaries into an actual SQL database
-- Add templates to the database and API
-- Add vocab listings to t he database and API
-- Combine adjectives and adverbs into one object
-- Add phrases (with different suggested tags), proper nouns (with associated types of pronouns)
-- Add tests
+- Figure out the template validation story
+  - does the API deal with strings or ParsedTemplate objects?
+  - how to prevent creation of invalid templates? should they even be protected against?
+  - how to prevent selecting a random invalid template?
+  - how to handle when the template definition changes in a breaking way?
+  - how to handle when there are no vocab words to fill in?
 
 # Starter kit
 
