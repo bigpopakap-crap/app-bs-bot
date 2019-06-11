@@ -1,9 +1,4 @@
-import {
-    WordClass,
-    VerbTense,
-    VerbPerson,
-    NounPlurality
-} from './words';
+import { WordClass, VerbTense, VerbPerson, NounPlurality } from './words';
 
 /* **************************************************************
                          PLACEHOLDERS
@@ -26,8 +21,8 @@ export type WordId = number;
  * {1:adverb}
  */
 interface BasePlaceholder<T extends WordClass> {
-    id: WordId,
-    class: T,
+  id: WordId;
+  class: T;
 }
 
 /**
@@ -37,8 +32,8 @@ interface BasePlaceholder<T extends WordClass> {
  * {3:verb:base}
  */
 export interface VerbPlaceholder extends BasePlaceholder<WordClass.verb> {
-    tense: VerbTense,
-    person?: VerbPerson,
+  tense: VerbTense;
+  person?: VerbPerson;
 }
 
 /**
@@ -60,29 +55,37 @@ export interface AdverbPlaceholder extends BasePlaceholder<WordClass.adverb> {}
  * {2:noun:plural}
  */
 export interface NounPlaceholder extends BasePlaceholder<WordClass.noun> {
-    plurality: NounPlurality,
+  plurality: NounPlurality;
 }
 
 export type Placeholder<T extends WordClass> =
-    VerbPlaceholder
-    | AdjectivePlaceholder
-    | AdverbPlaceholder
-    | NounPlaceholder;
+  | VerbPlaceholder
+  | AdjectivePlaceholder
+  | AdverbPlaceholder
+  | NounPlaceholder;
 
-export function isVerbPlaceholder(placeholder : Placeholder<WordClass>) : placeholder is VerbPlaceholder {
-    return placeholder.class === WordClass.verb;
+export function isVerbPlaceholder(
+  placeholder: Placeholder<WordClass>
+): placeholder is VerbPlaceholder {
+  return placeholder.class === WordClass.verb;
 }
 
-export function isAdjectivePlaceholder(placeholder : Placeholder<WordClass>) : placeholder is AdjectivePlaceholder {
-    return placeholder.class === WordClass.adjective;
+export function isAdjectivePlaceholder(
+  placeholder: Placeholder<WordClass>
+): placeholder is AdjectivePlaceholder {
+  return placeholder.class === WordClass.adjective;
 }
 
-export function isAdverbPlaceholder(placeholder : Placeholder<WordClass>) : placeholder is AdverbPlaceholder {
-    return placeholder.class === WordClass.adverb;
+export function isAdverbPlaceholder(
+  placeholder: Placeholder<WordClass>
+): placeholder is AdverbPlaceholder {
+  return placeholder.class === WordClass.adverb;
 }
 
-export function isNounPlaceholder(placeholder : Placeholder<WordClass>) : placeholder is NounPlaceholder {
-    return placeholder.class === WordClass.noun;
+export function isNounPlaceholder(
+  placeholder: Placeholder<WordClass>
+): placeholder is NounPlaceholder {
+  return placeholder.class === WordClass.noun;
 }
 
 /* **************************************************************
@@ -90,15 +93,15 @@ export function isNounPlaceholder(placeholder : Placeholder<WordClass>) : placeh
  ************************************************************** */
 
 export enum PlaceholderDelimiter {
-    START = '{',
-    MIDDLE = ':',
-    END = '}',
+  START = '{',
+  MIDDLE = ':',
+  END = '}'
 }
 
 type TemplateFragment = string | Placeholder<WordClass>;
 
-export function isPlaceholder(fragment : TemplateFragment) : fragment is Placeholder<WordClass> {
-    return fragment && typeof fragment === 'object';
+export function isPlaceholder(fragment: TemplateFragment): fragment is Placeholder<WordClass> {
+  return fragment && typeof fragment === 'object';
 }
 
 /**
@@ -112,4 +115,4 @@ export function isPlaceholder(fragment : TemplateFragment) : fragment is Placeho
  * Might convert to:
  * "We build complex solutions. Each solution functions perfectly."
  */
-export type Template = Array<TemplateFragment>
+export type Template = TemplateFragment[];

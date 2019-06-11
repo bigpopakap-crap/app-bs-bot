@@ -1,7 +1,7 @@
-import * as React from "react";
+import * as React from 'react';
+import { VocabName } from 'shared/vocab';
 
 import bsBotClient from './utils/bs-bot-client';
-import {VocabName} from "shared/vocab";
 
 interface Props {
   vocabName: VocabName;
@@ -31,21 +31,25 @@ export default class BSTalker extends React.Component<Props, State> {
       bsOutput: LOADING_TEXT
     });
 
-    bsBotClient.request({
-      url: "/bs",
-      params: {
-        vocabName: this.props.vocabName
-      }
-    })
-    .then(response => {
-      this.setState({
-        bsOutput: response.data.bs
-      });
-    }, error => {
-        this.setState({
+    bsBotClient
+      .request({
+        url: '/bs',
+        params: {
+          vocabName: this.props.vocabName
+        }
+      })
+      .then(
+        response => {
+          this.setState({
+            bsOutput: response.data.bs
+          });
+        },
+        error => {
+          this.setState({
             bsOutput: error.toString()
-        });
-    });
+          });
+        }
+      );
   }
 
   render() {

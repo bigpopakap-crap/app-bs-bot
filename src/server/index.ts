@@ -1,12 +1,15 @@
-import express from "express";
-import webpack from "webpack";
-import webpackMiddleware from "webpack-dev-middleware";
-import webpackHotMiddleware from "webpack-hot-middleware";
+import express from 'express';
+import webpack from 'webpack';
+import webpackMiddleware from 'webpack-dev-middleware';
+import webpackHotMiddleware from 'webpack-hot-middleware';
+
 // @ts-ignore TODO figure this out
-import webpackConfig from "../../webpack.config.dev";
+import webpackConfig from '../../webpack.config.dev';
+
 // TODO figure out why absolute imports aren't working here
-import api from "./api";
-import {API_PATH} from "../shared/constants";
+import { API_PATH } from '../shared/constants';
+
+import api from './api';
 
 const PORT = process.env.PORT || 3000;
 
@@ -27,7 +30,7 @@ app.use(
 app.use(API_PATH, api);
 
 // TODO this thing shouldn't have to know that public is in "src/"
-app.use(express.static("src/public"));
+app.use(express.static('src/public'));
 
 app.listen(PORT, () => {
   console.log(`🚀 Server listening on port ${PORT}.`);

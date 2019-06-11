@@ -1,14 +1,8 @@
-import {
-    Word,
-    WordClass,
-} from '../types/words';
-import {
-    Template,
-    WordId,
-    isPlaceholder,
-} from '../types/word-templates';
+import { Word, WordClass } from '../types/words';
+import { Template, WordId, isPlaceholder } from '../types/word-templates';
+
 import { formatWord } from './word-formatter';
-import {WordProvider} from "./word-provider";
+import { WordProvider } from './word-provider';
 
 type WordMap = Map<WordId, Word<WordClass>>;
 
@@ -19,23 +13,25 @@ type WordMap = Map<WordId, Word<WordClass>>;
  *                     randomized or not. It doesn't matter for this function.
  */
 export function fillTemplate(template: Template, provideWord: WordProvider) {
-    // Keep track of the the final map of words to use
-    const wordMap : WordMap = new Map();
-    template.forEach(fragment => {
-        if (isPlaceholder(fragment)) {
-            // First instance of a wordId gets to define the word we use
-            if (!wordMap.has(fragment.id)) {
-                wordMap.set(fragment.id, provideWord(fragment.class));
-            }
-        }
-    });
+  // Keep track of the the final map of words to use
+  const wordMap: WordMap = new Map();
+  template.forEach(fragment => {
+    if (isPlaceholder(fragment)) {
+      // First instance of a wordId gets to define the word we use
+      if (!wordMap.has(fragment.id)) {
+        wordMap.set(fragment.id, provideWord(fragment.class));
+      }
+    }
+  });
 
-    // Join all the fragments together and fill in the words
-    return template.map(fragment => {
-        if (isPlaceholder(fragment)) {
-            return formatWord(fragment, wordMap.get(fragment.id));
-        } else {
-            return fragment;
-        }
-    }).join('');
+  // Join all the fragments together and fill in the words
+  return template
+    .map(fragment => {
+      if (isPlaceholder(fragment)) {
+        return formatWord(fragment, wordMap.get(fragment.id));
+      } else {
+        return fragment;
+      }
+    })
+    .join('');
 }
