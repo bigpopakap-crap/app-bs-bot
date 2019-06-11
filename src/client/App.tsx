@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { hot } from 'react-hot-loader/root';
 
-import ApiExplorer from './ApiExplorer';
+import ApiExplorer from './components/ApiExplorer';
 
 class App extends React.Component<{}, {}> {
   public render() {

@@ -6,7 +6,6 @@ import bodyParser from 'body-parser';
 
 import BsBotApi from '../shared/types/bs-bot-api-restyped';
 import { fillTemplate, randomWordProvider } from '../shared/bs';
-import VOCABS, { VocabName } from '../shared/vocab';
 
 import WordStorage from './storage/words';
 import TemplateStorage from './storage/templates';
@@ -23,24 +22,6 @@ const templateStorage = new TemplateStorage();
 const app = express();
 app.use(bodyParser.json());
 const router = RestypedRouter<BsBotApi>(app);
-
-/* ************************************************************************
-                TODO OLD APIS THAT SHOULD EVENTUALLY BE REPLACED
- ************************************************************************ */
-router.get('/bs', async request => {
-  const vocabName = request.query.vocabName;
-  const vocab = VOCABS.get(vocabName);
-  const template = randomItem(vocab.templates);
-  return {
-    bs: fillTemplate(template, randomWordProvider(vocab))
-  };
-});
-
-router.get('/vocabName', async () => {
-  return {
-    vocabNames: Object.keys(VocabName) as VocabName[]
-  };
-});
 
 /* ************************************************************************
                             INTERACT WITH WORDS

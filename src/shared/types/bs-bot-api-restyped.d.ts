@@ -1,5 +1,3 @@
-import { VocabName } from '../vocab';
-
 import { Optional } from './optional';
 import { StorageRowId, StoredObject } from './storage';
 import { WordMetadata, WordQuery } from './word-metadata';
@@ -7,33 +5,6 @@ import { WordClass } from './words';
 import { TemplateMetadata, TemplateQuery } from './word-template-metadata';
 
 export default interface BsBotApi {
-  /* ************************************************************************
-                             RANDOMLY GENERATE B.S.
-                             TODO remove or replace
-     ************************************************************************ */
-  '/bs': {
-    GET: {
-      query: {
-        vocabName: VocabName;
-      };
-      response: {
-        bs: string;
-      };
-    };
-  };
-
-  /* ************************************************************************
-                             SEE WHAT VOCABS ARE AVAILABLE
-                             TODO remove or replace
-     ************************************************************************ */
-  '/vocabName': {
-    GET: {
-      response: {
-        vocabNames: VocabName[];
-      };
-    };
-  };
-
   /* ************************************************************************
                             INTERACT WITH WORDS
      ************************************************************************ */
