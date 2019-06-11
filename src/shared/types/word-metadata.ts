@@ -4,6 +4,7 @@ type PageStart = string;
 type PageEnd = string;
 type WordTag = string;
 
+// TODO use paging?
 export interface WordPagingDescriptor {
   start?: PageStart;
   end?: PageEnd;

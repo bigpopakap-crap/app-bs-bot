@@ -68,11 +68,6 @@ export default class<T extends WordClass> implements WordsStorage<T> {
   }
 
   public search(query: WordQuery): StoredObject<WordMetadata<T>>[] {
-    // searchText?: string,
-    // wordClass?: WordClass,
-    // tags?: Array<WordTag>,
-    // noNSFW?: boolean,
-
     return (
       this.rows
         // Reject any word that is NSFW, if our query wants to filter them out
