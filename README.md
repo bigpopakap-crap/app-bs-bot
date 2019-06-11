@@ -2,7 +2,6 @@
 
 ## To do
 
-- Add templates to the database and API
 - Add vocab listings to the database and API
 - Combine adjectives and adverbs into one object
 - Put these dictionaries into an actual SQL database

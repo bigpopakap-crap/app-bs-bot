@@ -89,12 +89,6 @@ router.delete('/words', async request => {
   wordStorage.deleteAll(request.query.ids);
 });
 
-// Lastly, handle any unknown requests with a 404
-app.get('*', async (request, response) => {
-  response.status(404).end();
-  return;
-});
-
 /* ************************************************************************
                             INTERACT WITH TEMPLATES
  ************************************************************************ */
@@ -145,7 +139,7 @@ router.delete('/templates', async request => {
 /* ************************************************************************
                             UNKNOWN REQUESTS
  ************************************************************************ */
-app.get('*', async (request, response) => {
+app.all('*', async (request, response) => {
   response.status(404).end();
   return;
 });
