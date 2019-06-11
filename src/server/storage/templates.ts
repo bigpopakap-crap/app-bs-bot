@@ -6,6 +6,7 @@ import intersect from 'intersect';
 import { TemplateMetadata, TemplateQuery } from '../../shared/types/word-template-metadata';
 import { StorageRowId, StoredObject, UnstoredObject } from '../../shared/types/storage';
 import { Optional } from '../../shared/types/optional';
+import { parseTemplate } from '../../shared/bs';
 
 import { CrudableStorage, SearchableStorage } from './types/storage-behaviors';
 
@@ -26,6 +27,9 @@ export default class
   }
 
   public insert(newObject: UnstoredObject<TemplateMetadata>): StoredObject<TemplateMetadata> {
+    // Before we insert any template into the table, make sure it is valid
+    parseTemplate(newObject.value);
+
     const newObjectWithId = {
       id: uuid(),
       value: newObject
@@ -48,6 +52,9 @@ export default class
   }
 
   public update(updatedObject: StoredObject<TemplateMetadata>): void {
+    // Before we update any template into the table, make sure the new value is valid
+    parseTemplate(updatedObject.value.value);
+
     const existingRow = this.get(updatedObject.id);
     if (existingRow) {
       existingRow.value = updatedObject.value;

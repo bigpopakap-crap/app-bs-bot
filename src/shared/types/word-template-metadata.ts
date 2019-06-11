@@ -1,4 +1,4 @@
-import { Template } from './word-templates';
+import { UnparsedTemplate } from './word-templates';
 
 type PageStart = string;
 type PageEnd = string;
@@ -19,5 +19,5 @@ export interface TemplateQuery {
 export interface TemplateMetadata {
   tags: TemplateTag[];
   isNSFW: boolean;
-  value: Template;
+  value: UnparsedTemplate;
 }

@@ -23,6 +23,7 @@ export type WordId = number;
 interface BasePlaceholder<T extends WordClass> {
   id: WordId;
   class: T;
+  // TODO add a toString() method that prints it out like "{1:verb:past:participle}"
 }
 
 /**
@@ -115,4 +116,9 @@ export function isPlaceholder(fragment: TemplateFragment): fragment is Placehold
  * Might convert to:
  * "We build complex solutions. Each solution functions perfectly."
  */
-export type Template = TemplateFragment[];
+export type UnparsedTemplate = string;
+
+/**
+ * The parsed version of {@link UnparsedTemplate}
+ */
+export type ParsedTemplate = TemplateFragment[];

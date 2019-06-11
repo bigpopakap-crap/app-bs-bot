@@ -6,13 +6,14 @@ import {
   NounPlurality
 } from '../types/words';
 import {
-  Template,
+  ParsedTemplate,
   WordId,
   PlaceholderDelimiter,
   VerbPlaceholder,
   AdjectivePlaceholder,
   AdverbPlaceholder,
-  NounPlaceholder
+  NounPlaceholder,
+  UnparsedTemplate
 } from '../types/word-templates';
 
 /**
@@ -64,7 +65,7 @@ function parseVerb(id: WordId, inputFragment: string, placeholderParts: string[]
   })();
 
   // The "person" must be defined
-  const person = (function() {
+  const person = (() => {
     if (placeholderParts.length < 4) {
       if (isTensePersonIndependent(tense)) {
         // omitting the "person" is allowed for this tense
@@ -140,7 +141,10 @@ function parseNoun(id: WordId, inputFragment: string, placeholderParts: string[]
   };
 }
 
-export function parseTemplate(input: string): Template {
+// TODO return a list of validation errors instead of throwing
+export function parseTemplate(input: UnparsedTemplate): ParsedTemplate {
+  const wordIdToClass = new Map<WordId, WordClass>();
+
   return input.split(SPLIT_REGEX).map(inputFragment => {
     const placeholderMatch = inputFragment.match(FRAGMENT_IS_PLACEHOLDER_REGEX);
 
@@ -151,8 +155,10 @@ export function parseTemplate(input: string): Template {
     }
 
     // Get the first match group, which is the contents of the placeholder
-    const placeholderString = placeholderMatch[1];
-    const placeholderParts = placeholderString.split(PlaceholderDelimiter.MIDDLE);
+    const placeholderString = placeholderMatch[1].trim();
+    const placeholderParts = placeholderString
+      .split(PlaceholderDelimiter.MIDDLE)
+      .map(part => part.trim());
 
     // An "id" is required in the placeholder
     if (placeholderParts.length < 1) {
@@ -181,6 +187,21 @@ export function parseTemplate(input: string): Template {
       throw new Error(
         `Error parsing fragment="${inputFragment}". The "class" attribute must be one of ${VALID_WORD_CLASSES}, but was ${classString}.`
       );
+    }
+
+    // The word class must match any other placeholder with the same ID
+    // TODO print both placeholders instead of just saying "it matched a previous placeholder"
+    if (wordIdToClass.has(id)) {
+      const previousWordClass = wordIdToClass.get(id);
+      if (previousWordClass !== wordClass) {
+        throw new Error(
+          `fragment=${inputFragment} has same id=${id} as previous placeholder,
+            but the word classes did not match.
+            wordClass=${wordClass} conflicted with previousWordClass=${previousWordClass}`
+        );
+      }
+    } else {
+      wordIdToClass.set(id, wordClass);
     }
 
     // Depending on the word class, parse the rest

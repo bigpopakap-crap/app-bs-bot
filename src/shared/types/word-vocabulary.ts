@@ -1,8 +1,8 @@
 import { Verb, Adjective, Adverb, Noun } from './words';
-import { Template } from './word-templates';
+import { ParsedTemplate } from './word-templates';
 
 export interface WordVocabulary {
-  templates: Template[];
+  templates: ParsedTemplate[];
   verbs: Verb[];
   adjectives: Adjective[];
   adverbs: Adverb[];
