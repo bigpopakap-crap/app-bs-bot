@@ -5,7 +5,6 @@ import webpackHotMiddleware from 'webpack-hot-middleware';
 
 // @ts-ignore TODO figure this out
 import webpackConfig from '../../webpack.config.dev';
-
 // TODO figure out why absolute imports aren't working here
 import { API_PATH } from '../shared/constants';
 

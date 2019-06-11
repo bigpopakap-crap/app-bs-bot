@@ -7,7 +7,6 @@ import bsBotClient from './utils/bs-bot-client';
 import BSTalker from './BSTalker';
 import ApiExplorer from './ApiExplorer';
 
-interface Props {}
 interface State {
   isLoading: boolean;
   isError: boolean;
@@ -15,9 +14,9 @@ interface State {
   vocabNames: VocabName[];
 }
 
-class App extends React.Component<Props, State> {
+class App extends React.Component<{}, State> {
   // @ts-ignore TODO figure this ou t
-  constructor(props) {
+  public constructor(props) {
     super(props);
     this.state = {
       isLoading: true,
@@ -27,7 +26,7 @@ class App extends React.Component<Props, State> {
     };
   }
 
-  componentDidMount() {
+  public componentDidMount() {
     bsBotClient
       .request({
         url: '/vocabName'
@@ -50,7 +49,7 @@ class App extends React.Component<Props, State> {
       );
   }
 
-  render() {
+  public render() {
     const content = (() => {
       if (this.state.isLoading) {
         return <p>Loading...</p>;

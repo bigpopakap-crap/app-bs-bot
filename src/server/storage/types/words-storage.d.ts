@@ -1,5 +1,5 @@
 import { StoredObject, UnstoredObject, StorageRowId } from '../../../shared/types/storage';
-import { Optional } from '../../../shared/utils/optional';
+import { Optional } from '../../../shared/types/optional';
 import { WordClass } from '../../../shared/types/words';
 import { WordQuery, WordMetadata } from '../../../shared/types/word-metadata';
 

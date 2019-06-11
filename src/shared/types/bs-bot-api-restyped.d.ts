@@ -1,6 +1,6 @@
 import { VocabName } from '../vocab';
-import { Optional } from '../utils/optional';
 
+import { Optional } from './optional';
 import { StorageRowId, StoredObject } from './storage';
 import { WordMetadata, WordQuery } from './word-metadata';
 import { WordClass } from './words';

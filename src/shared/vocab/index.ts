@@ -1,4 +1,4 @@
-import { WordVocabulary } from 'shared/types/word-vocabulary';
+import { WordVocabulary } from '../../shared/types/word-vocabulary';
 
 import BIZ_VOCAB from './biz';
 import SHAKESPEARE_VOCAB from './shakespeare';

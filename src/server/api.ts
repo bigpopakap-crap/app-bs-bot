@@ -26,9 +26,9 @@ router.get('/bs', async request => {
   };
 });
 
-router.get('/vocabName', async request => {
+router.get('/vocabName', async () => {
   return {
-    vocabNames: <VocabName[]>Object.keys(VocabName)
+    vocabNames: Object.keys(VocabName) as VocabName[]
   };
 });
 

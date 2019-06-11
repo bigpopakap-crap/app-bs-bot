@@ -6,17 +6,14 @@ import { WordClass } from '../shared/types/words';
 
 import bsBotClient from './utils/bs-bot-client';
 
-interface Props {}
-interface State {}
-
 const API_NAMESPACE = 'bsBotApi';
 
-export default class ApiExplorer extends React.Component<Props, State> {
-  async getWord(id: StorageRowId) {
+export default class ApiExplorer extends React.Component {
+  private async getWord(id: StorageRowId) {
     return await bsBotClient.get<'/word/:id'>(`/word/${id}`);
   }
 
-  async createWord(word: WordMetadata<WordClass>) {
+  private async createWord(word: WordMetadata<WordClass>) {
     /*
             bsBotApi.createWord({
                 forms: ['build', 'building', 'built'],
@@ -48,7 +45,7 @@ export default class ApiExplorer extends React.Component<Props, State> {
     });
   }
 
-  componentDidMount() {
+  public componentDidMount() {
     // @ts-ignore
     window[API_NAMESPACE] = {
       getWord: this.getWord.bind(this),
@@ -56,7 +53,7 @@ export default class ApiExplorer extends React.Component<Props, State> {
     };
   }
 
-  render() {
+  public render() {
     return (
       <div>
         Explore the API in the console. Use <code>window.{API_NAMESPACE}</code>.

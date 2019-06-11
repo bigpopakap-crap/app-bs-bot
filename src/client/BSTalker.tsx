@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { VocabName } from 'shared/vocab';
+
+import { VocabName } from '../shared/vocab';
 
 import bsBotClient from './utils/bs-bot-client';
 
@@ -15,18 +16,18 @@ const LOADING_TEXT = 'Loading...';
 
 export default class BSTalker extends React.Component<Props, State> {
   // @ts-ignore TODO figure this out
-  constructor(props) {
+  public constructor(props) {
     super(props);
     this.state = {
       bsOutput: LOADING_TEXT
     };
   }
 
-  componentDidMount() {
+  public componentDidMount() {
     this.requestBS();
   }
 
-  requestBS() {
+  private requestBS() {
     this.setState({
       bsOutput: LOADING_TEXT
     });
@@ -52,7 +53,7 @@ export default class BSTalker extends React.Component<Props, State> {
       );
   }
 
-  render() {
+  public render() {
     return (
       <div>
         <h3>{this.props.vocabName} talker says:</h3>

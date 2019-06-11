@@ -41,13 +41,13 @@ export interface VerbPlaceholder extends BasePlaceholder<WordClass.verb> {
  * {1:adjective:50}
  * {2:adjective}
  */
-export interface AdjectivePlaceholder extends BasePlaceholder<WordClass.adjective> {}
+export type AdjectivePlaceholder = BasePlaceholder<WordClass.adjective>;
 
 /**
  * Examples:
  * {1:adverb}
  */
-export interface AdverbPlaceholder extends BasePlaceholder<WordClass.adverb> {}
+export type AdverbPlaceholder = BasePlaceholder<WordClass.adverb>;
 
 /**
  * Examples:

@@ -3,7 +3,7 @@ import randomItem from 'random-item';
 import { WordsStorage } from '../types/words-storage';
 import { WordClass } from '../../../shared/types/words';
 import { StoredObject, UnstoredObject, StorageRowId } from '../../../shared/types/storage';
-import { Optional } from '../../../shared/utils/optional';
+import { Optional } from '../../../shared/types/optional';
 import { WordQuery, WordMetadata } from '../../../shared/types/word-metadata';
 
 import WordsMemoryStorage from './words-memory-storage';
@@ -16,16 +16,16 @@ interface StorageAndClass {
 export default class implements WordsStorage<WordClass> {
   private allStoragesWithClass: StorageAndClass[];
 
-  constructor() {
+  public constructor() {
     // Create a storage class for every word class
     this.allStoragesWithClass = Object.keys(WordClass).map(wordClass => ({
       // TODO remove this cast
-      wordClass: <WordClass>wordClass,
+      wordClass: wordClass as WordClass,
       storage: new WordsMemoryStorage<WordClass>()
     }));
   }
 
-  get(id: StorageRowId): Optional<StoredObject<WordMetadata<WordClass>>> {
+  public get(id: StorageRowId): Optional<StoredObject<WordMetadata<WordClass>>> {
     const results = this.allStoragesWithClass
       .map(storageAndClass => storageAndClass.storage)
       .map(storage => storage.get(id))
@@ -40,7 +40,7 @@ export default class implements WordsStorage<WordClass> {
     }
   }
 
-  getAll(ids: StorageRowId[]): Optional<StoredObject<WordMetadata<WordClass>>>[] {
+  public getAll(ids: StorageRowId[]): Optional<StoredObject<WordMetadata<WordClass>>>[] {
     const foundWords = this.allStoragesWithClass
       .map(storageAndClass => storageAndClass.storage)
       .map(storage => storage.getAll(ids))
@@ -58,7 +58,7 @@ export default class implements WordsStorage<WordClass> {
     return ids.map(id => (foundWordsById.has(id) ? foundWordsById.get(id) : null));
   }
 
-  insert(
+  public insert(
     newObject: UnstoredObject<WordMetadata<WordClass>>
   ): StoredObject<WordMetadata<WordClass>> {
     const insertedObjects = this.allStoragesWithClass
@@ -81,7 +81,7 @@ export default class implements WordsStorage<WordClass> {
    * Note: this doesn't necessarily return them  in the same order
    * @param newObjects
    */
-  insertAll(
+  public insertAll(
     newObjects: UnstoredObject<WordMetadata<WordClass>>[]
   ): StoredObject<WordMetadata<WordClass>>[] {
     return this.allStoragesWithClass
@@ -93,7 +93,7 @@ export default class implements WordsStorage<WordClass> {
       .reduce((acc, cur) => acc.concat(cur), []);
   }
 
-  update(updatedObject: StoredObject<WordMetadata<WordClass>>): void {
+  public update(updatedObject: StoredObject<WordMetadata<WordClass>>): void {
     // We can simply update in all tables without worrying about WordClass because
     // any table of the wrong wordClass will no-op pretty efficiently.
     this.allStoragesWithClass
@@ -101,7 +101,7 @@ export default class implements WordsStorage<WordClass> {
       .forEach(storage => storage.update(updatedObject));
   }
 
-  updateAll(updatedObjects: StoredObject<WordMetadata<WordClass>>[]): void {
+  public updateAll(updatedObjects: StoredObject<WordMetadata<WordClass>>[]): void {
     // We can simply update in all tables without worrying about WordClass because
     // any table of the wrong wordClass will no-op pretty efficiently for any of the words
     // that don't exist in the table, and will do partial updates for the words that do
@@ -111,7 +111,7 @@ export default class implements WordsStorage<WordClass> {
       .forEach(storage => storage.updateAll(updatedObjects));
   }
 
-  delete(id: StorageRowId): void {
+  public delete(id: StorageRowId): void {
     // We can simply update in all tables without worrying about WordClass because
     // any table of the wrong wordClass will no-op pretty efficiently.
     this.allStoragesWithClass
@@ -119,7 +119,7 @@ export default class implements WordsStorage<WordClass> {
       .forEach(storage => storage.delete(id));
   }
 
-  deleteAll(ids: StorageRowId[]): void {
+  public deleteAll(ids: StorageRowId[]): void {
     // We can simply update in all tables without worrying about WordClass because
     // any table of the wrong wordClass will no-op pretty efficiently for any of the words
     // that don't exist in the table, and will do partial updates for the words that do
@@ -129,18 +129,18 @@ export default class implements WordsStorage<WordClass> {
       .forEach(storage => storage.deleteAll(ids));
   }
 
-  search(query: WordQuery): StoredObject<WordMetadata<WordClass>>[] {
+  public search(query: WordQuery): StoredObject<WordMetadata<WordClass>>[] {
     return this.allStoragesWithClass
       .map(storageAndClass => storageAndClass.storage)
       .map(storage => storage.search(query))
       .reduce((acc, cur) => acc.concat(cur), []);
   }
 
-  random(query: WordQuery): Optional<StoredObject<WordMetadata<WordClass>>> {
+  public random(query: WordQuery): Optional<StoredObject<WordMetadata<WordClass>>> {
     return randomItem(this.search(query));
   }
 
-  randomAll(queries: WordQuery[]): Optional<StoredObject<WordMetadata<WordClass>>>[] {
+  public randomAll(queries: WordQuery[]): Optional<StoredObject<WordMetadata<WordClass>>>[] {
     return queries.map(query => this.random(query));
   }
 }

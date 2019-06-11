@@ -9,7 +9,7 @@
     "removeComments": true,
     "preserveConstEnums": true,
     "allowSyntheticDefaultImports": true, // TODO remove this line
-    "sourceMap": true,
+    "sourceMap": true
   },
   "exclude": [
     "node_modules"

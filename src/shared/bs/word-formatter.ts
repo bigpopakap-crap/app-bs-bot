@@ -23,26 +23,6 @@ import {
   VerbPlaceholder
 } from '../types/word-templates';
 
-export function formatWord<T extends WordClass>(
-  placeholder: Placeholder<T>,
-  word: Word<T>
-): string {
-  if (isVerbPlaceholder(placeholder) && isVerb(word)) {
-    return formatVerb(placeholder, word);
-  } else if (isAdjectivePlaceholder(placeholder) && isAdjective(word)) {
-    return formatAdjective(placeholder, word);
-  } else if (isAdverbPlaceholder(placeholder) && isAdverb(word)) {
-    return formatAdverb(placeholder, word);
-  } else if (isNounPlaceholder(placeholder) && isNoun(word)) {
-    return formatNoun(placeholder, word);
-  } else {
-    throw new Error(
-      `Unexpected placeholder=${JSON.stringify(placeholder)} and word=${JSON.stringify(word)}.
-        This is either a new class of word, or the classes do not agree`
-    );
-  }
-}
-
 function formatVerb(placeholder: VerbPlaceholder, word: Verb): string {
   if (placeholder.tense === VerbTense.base || placeholder.tense === VerbTense.progressive) {
     return word[placeholder.tense];
@@ -64,4 +44,24 @@ function formatAdverb(placeholder: AdverbPlaceholder, word: Adverb): string {
 
 function formatNoun(placeholder: NounPlaceholder, word: Noun): string {
   return word[placeholder.plurality];
+}
+
+export function formatWord<T extends WordClass>(
+  placeholder: Placeholder<T>,
+  word: Word<T>
+): string {
+  if (isVerbPlaceholder(placeholder) && isVerb(word)) {
+    return formatVerb(placeholder, word);
+  } else if (isAdjectivePlaceholder(placeholder) && isAdjective(word)) {
+    return formatAdjective(placeholder, word);
+  } else if (isAdverbPlaceholder(placeholder) && isAdverb(word)) {
+    return formatAdverb(placeholder, word);
+  } else if (isNounPlaceholder(placeholder) && isNoun(word)) {
+    return formatNoun(placeholder, word);
+  } else {
+    throw new Error(
+      `Unexpected placeholder=${JSON.stringify(placeholder)} and word=${JSON.stringify(word)}.
+        This is either a new class of word, or the classes do not agree`
+    );
+  }
 }
