@@ -3,14 +3,14 @@ import randomItem from 'random-item';
 // @ts-ignore TODO un-ignore this if/when this package has a @types/ package
 import intersect from 'intersect';
 
-import { WordsStorage } from '../types/words-storage';
 import { StoredObject, UnstoredObject, StorageRowId } from '../../../shared/types/storage';
 import { Optional } from '../../../shared/types/optional';
 import { WordClass } from '../../../shared/types/words';
-// @ts-ignore
 import { WordQuery, WordMetadata } from '../../../shared/types/word-metadata';
+import { CrudableStorage, SearchableStorage } from '../types/storage-behaviors';
 
-export default class<T extends WordClass> implements WordsStorage<T> {
+export default class<T extends WordClass>
+  implements CrudableStorage<WordMetadata<T>>, SearchableStorage<WordMetadata<T>, WordQuery> {
   private rows: StoredObject<WordMetadata<T>>[];
 
   public constructor() {

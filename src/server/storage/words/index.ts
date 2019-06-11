@@ -1,19 +1,22 @@
 import randomItem from 'random-item';
 
-import { WordsStorage } from '../types/words-storage';
 import { WordClass } from '../../../shared/types/words';
 import { StoredObject, UnstoredObject, StorageRowId } from '../../../shared/types/storage';
 import { Optional } from '../../../shared/types/optional';
 import { WordQuery, WordMetadata } from '../../../shared/types/word-metadata';
+import { CrudableStorage, SearchableStorage } from '../types/storage-behaviors';
 
-import WordsMemoryStorage from './words-memory-storage';
+import WordTable from './word-table';
 
 interface StorageAndClass {
   wordClass: WordClass;
-  storage: WordsMemoryStorage<WordClass>;
+  storage: WordTable<WordClass>;
 }
 
-export default class implements WordsStorage<WordClass> {
+export default class
+  implements
+    CrudableStorage<WordMetadata<WordClass>>,
+    SearchableStorage<WordMetadata<WordClass>, WordQuery> {
   private allStoragesWithClass: StorageAndClass[];
 
   public constructor() {
@@ -21,7 +24,7 @@ export default class implements WordsStorage<WordClass> {
     this.allStoragesWithClass = Object.keys(WordClass).map(wordClass => ({
       // TODO remove this cast
       wordClass: wordClass as WordClass,
-      storage: new WordsMemoryStorage<WordClass>()
+      storage: new WordTable<WordClass>()
     }));
   }
 
