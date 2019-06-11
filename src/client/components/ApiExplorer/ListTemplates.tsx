@@ -11,6 +11,28 @@ interface Props {
 
 export default class ListTemplates extends React.Component<Props, {}> {
   public render() {
-    return <div>TODO</div>;
+    const templateListItems = this.props.templates.map(template => {
+      const nsfw = template.value.isNSFW ? <span>(NSFW)</span> : null;
+
+      const tags = template.value.tags.map(tag => (
+        <span key={`${template.id}.tag.${tag}`}>({tag})</span>
+      ));
+
+      return (
+        <li key={template.id}>
+          <span>{template.value.value}</span>
+          {nsfw}
+          {tags}
+        </li>
+      );
+    });
+
+    if (this.props.isLoading) {
+      return <div>Loading...</div>;
+    } else if (this.props.templates.length === 0) {
+      return <div>No templates</div>;
+    } else {
+      return <ol>{templateListItems}</ol>;
+    }
   }
 }

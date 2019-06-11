@@ -37,6 +37,13 @@ const columnStyle = {
   flex: '1 0 auto'
 };
 
+const boxStyle = {
+  margin: '4px',
+  padding: '12px',
+  borderRadius: '4px',
+  border: 'solid 1px black'
+};
+
 export default class ApiExplorer extends React.Component<{}, State> {
   // @ts-ignore TODO figure out why this has implicity 'any' type
   public constructor(props) {
@@ -52,6 +59,12 @@ export default class ApiExplorer extends React.Component<{}, State> {
       templateList: [],
       templateNetworkError: null
     };
+
+    this.refreshWords = this.refreshWords.bind(this);
+    this.refreshTemplates = this.refreshTemplates.bind(this);
+    this.createWord = this.createWord.bind(this);
+    this.updateWordQuery = this.updateWordQuery.bind(this);
+    this.updateTemplateQuery = this.updateTemplateQuery.bind(this);
   }
 
   private async refreshWords() {
@@ -90,6 +103,7 @@ export default class ApiExplorer extends React.Component<{}, State> {
       });
 
       this.setState({
+        isLoadingTemplates: false,
         templateList: response.data
       });
     } catch (ex) {
@@ -109,16 +123,6 @@ export default class ApiExplorer extends React.Component<{}, State> {
     });
 
     this.refreshWords();
-  }
-
-  private async createTemplate(template: TemplateMetadata) {
-    await bsBotClient.request({
-      method: 'POST',
-      url: '/template',
-      data: template
-    });
-
-    this.refreshTemplates();
   }
 
   private updateWordQuery(wordQuery: WordQuery) {
@@ -145,58 +149,68 @@ export default class ApiExplorer extends React.Component<{}, State> {
   public render(): React.ReactNode {
     return (
       <div>
-        <section className="api-explorer__words" style={columnsParentStyle}>
-          <div className="api-explorer__words__create-column" style={columnStyle}>
-            <div>
+        <section style={columnsParentStyle}>
+          <div style={columnStyle}>
+            <div style={boxStyle}>
               <h2>Create verb</h2>
               <CreateVerb onCreate={this.createWord} />
             </div>
 
-            <div>
+            <div style={boxStyle}>
               <h2>Create adjective</h2>
               <CreateAdjective onCreate={this.createWord} />
             </div>
 
-            <div>
+            <div style={boxStyle}>
               <h2>Create adverb</h2>
               <CreateAdverb onCreate={this.createWord} />
             </div>
 
-            <div>
+            <div style={boxStyle}>
               <h2>Create noun</h2>
               <CreateNoun onCreate={this.createWord} />
             </div>
           </div>
 
-          <div className="api-explorer__words__list-column" style={columnStyle}>
-            <h2>Current words</h2>
-            <ListWords
-              isLoading={this.state.isLoadingWords}
-              words={this.state.wordList}
-              onUpdateQuery={this.updateWordQuery}
-            />
+          <div style={columnStyle}>
+            <div style={boxStyle}>
+              <h2>Current words</h2>
+              <ListWords
+                isLoading={this.state.isLoadingWords}
+                words={this.state.wordList}
+                onUpdateQuery={this.updateWordQuery}
+              />
+            </div>
           </div>
         </section>
 
-        <div className="api-explorer__templates" style={columnsParentStyle}>
-          <div className="api-explorer__templates__create-column" style={columnStyle}>
-            <h2>Create template</h2>
-            <CreateTemplate onCreate={this.createTemplate} />
+        <section style={columnsParentStyle}>
+          <div style={columnStyle}>
+            <div style={boxStyle}>
+              <h2>Create template</h2>
+              <CreateTemplate afterSuccessfulCreate={this.refreshTemplates} />
+            </div>
           </div>
-          <div className="api-explorer__templates__list-column" style={columnStyle}>
-            <h2>Current templates</h2>
-            <ListTemplates
-              isLoading={this.state.isLoadingTemplates}
-              templates={this.state.templateList}
-              onUpdateQuery={this.updateTemplateQuery}
-            />
+          <div style={columnStyle}>
+            <div style={boxStyle}>
+              <h2>Current templates</h2>
+              <ListTemplates
+                isLoading={this.state.isLoadingTemplates}
+                templates={this.state.templateList}
+                onUpdateQuery={this.updateTemplateQuery}
+              />
+            </div>
           </div>
-        </div>
+        </section>
 
-        <div className="api-explorer__bs">
-          <h2>Generate B.S.</h2>
-          <GenerateBS />
-        </div>
+        <section style={columnsParentStyle}>
+          <div style={columnStyle}>
+            <div style={boxStyle}>
+              <h2>Generate B.S.</h2>
+              <GenerateBS />
+            </div>
+          </div>
+        </section>
       </div>
     );
   }
