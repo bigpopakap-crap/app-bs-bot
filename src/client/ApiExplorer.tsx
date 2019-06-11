@@ -1,62 +1,54 @@
 import * as React from 'react';
 
-import { StorageRowId } from '../shared/types/storage';
-import { WordMetadata } from '../shared/types/word-metadata';
-import { WordClass } from '../shared/types/words';
+const columnsParentStyle = {
+  display: 'flex',
+  width: '100%'
+};
 
-import bsBotClient from './utils/bs-bot-client';
+const columnStyle = {
+  flex: '1 0 auto'
+};
 
-const API_NAMESPACE = 'bsBotApi';
-
-export default class ApiExplorer extends React.Component {
-  private async getWord(id: StorageRowId) {
-    return await bsBotClient.get<'/word/:id'>(`/word/${id}`);
-  }
-
-  private async createWord(word: WordMetadata<WordClass>) {
-    /*
-            bsBotApi.createWord({
-                forms: ['build', 'building', 'built'],
-                tags: ['creation'],
-                isNSFW: false,
-                value: {
-                    class: 'verb',
-                    base: 'build',
-                    progressive: 'building',
-                    present: {
-                        first: 'build',
-                        second: 'build',
-                        third: 'builds',
-                        participle: 'built',
-                    },
-                    past: {
-                        first: 'built',
-                        second: 'built',
-                        third: 'built',
-                        participle: 'built',
-                    }
-                }
-            });
-         */
-    return await bsBotClient.request({
-      method: 'POST',
-      url: '/word',
-      data: word
-    });
-  }
-
-  public componentDidMount() {
-    // @ts-ignore
-    window[API_NAMESPACE] = {
-      getWord: this.getWord.bind(this),
-      createWord: this.createWord.bind(this)
-    };
-  }
-
+export default class ApiExplorer extends React.Component<{}, {}> {
   public render() {
     return (
       <div>
-        Explore the API in the console. Use <code>window.{API_NAMESPACE}</code>.
+        <section className="api-explorer__words" style={columnsParentStyle}>
+          <div className="api-explorer__words__create-column" style={columnStyle}>
+            <div>
+              <h2>Create verb</h2>
+            </div>
+
+            <div>
+              <h2>Create adjective</h2>
+            </div>
+
+            <div>
+              <h2>Create adverb</h2>
+            </div>
+
+            <div>
+              <h2>Create noun</h2>
+            </div>
+          </div>
+
+          <div className="api-explorer__words__list-column" style={columnStyle}>
+            <h2>Current words</h2>
+          </div>
+        </section>
+
+        <div className="api-explorer__templates" style={columnsParentStyle}>
+          <div className="api-explorer__templates__create-column" style={columnStyle}>
+            <h2>Create template</h2>
+          </div>
+          <div className="api-explorer__templates__list-column" style={columnStyle}>
+            <h2>Current templates</h2>
+          </div>
+        </div>
+
+        <div className="api-explorer__bs">
+          <h2>Generate B.S.</h2>
+        </div>
       </div>
     );
   }
