@@ -4,10 +4,12 @@ import { Optional } from './optional';
 import { StorageRowId, StoredObject } from './storage';
 import { WordMetadata, WordQuery } from './word-metadata';
 import { WordClass } from './words';
+import { TemplateMetadata, TemplateQuery } from './word-template-metadata';
 
 export default interface BsBotApi {
   /* ************************************************************************
                              RANDOMLY GENERATE B.S.
+                             TODO remove or replace
      ************************************************************************ */
   '/bs': {
     GET: {
@@ -22,6 +24,7 @@ export default interface BsBotApi {
 
   /* ************************************************************************
                              SEE WHAT VOCABS ARE AVAILABLE
+                             TODO remove or replace
      ************************************************************************ */
   '/vocabName': {
     GET: {
@@ -104,6 +107,88 @@ export default interface BsBotApi {
 
     /**
      * Delete multilpe existing words
+     */
+    DELETE: {
+      query: {
+        ids: StorageRowId[];
+        // TODO respond with something indicating which ones were deleted
+      };
+    };
+  };
+
+  /* ************************************************************************
+                            INTERACT WITH TEMPLATES
+     ************************************************************************ */
+  '/template/:id': {
+    /**
+     * Get a single template by ID
+     */
+    GET: {
+      params: {
+        id: StorageRowId;
+      };
+      response: Optional<StoredObject<TemplateMetadata>>;
+    };
+
+    /**
+     * Update (replace) a single existing template
+     */
+    PUT: {
+      params: {
+        id: StorageRowId;
+      };
+      body: StoredObject<TemplateMetadata>;
+      // TODO respond with the updated value
+    };
+
+    /**
+     * Delete a single existing template
+     */
+    DELETE: {
+      params: {
+        id: StorageRowId;
+      };
+      // TODO respond with something indicating whether it was deleted
+    };
+  };
+
+  '/template': {
+    /**
+     * Create a single template
+     */
+    POST: {
+      body: TemplateMetadata;
+      response: StoredObject<TemplateMetadata>;
+    };
+  };
+
+  '/templates': {
+    /**
+     * Get multiple templates with filters/query
+     */
+    GET: {
+      query: TemplateQuery;
+      response: StoredObject<TemplateMetadata>[];
+    };
+
+    /**
+     * Create multiple templates
+     */
+    POST: {
+      body: TemplateMetadata[];
+      response: StoredObject<TemplateMetadata>[];
+    };
+
+    /**
+     * Update (replace) multiple existing templates
+     */
+    PUT: {
+      body: StoredObject<TemplateMetadata>[];
+      // TODO respond with the updated values
+    };
+
+    /**
+     * Delete multilpe existing templates
      */
     DELETE: {
       query: {

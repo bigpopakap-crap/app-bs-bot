@@ -5,18 +5,28 @@ import randomItem from 'random-item';
 import bodyParser from 'body-parser';
 
 import BsBotApi from '../shared/types/bs-bot-api-restyped';
-// TODO figure out why absolute path imports aren't working here
 import { fillTemplate, randomWordProvider } from '../shared/bs';
 import VOCABS, { VocabName } from '../shared/vocab';
 
 import WordStorage from './storage/words';
+import TemplateStorage from './storage/templates';
 
+/* ************************************************************************
+                              configure database
+ ************************************************************************ */
 const wordStorage = new WordStorage();
+const templateStorage = new TemplateStorage();
 
+/* ************************************************************************
+                              configure app
+ ************************************************************************ */
 const app = express();
 app.use(bodyParser.json());
 const router = RestypedRouter<BsBotApi>(app);
 
+/* ************************************************************************
+                TODO OLD APIS THAT SHOULD EVENTUALLY BE REPLACED
+ ************************************************************************ */
 router.get('/bs', async request => {
   const vocabName = request.query.vocabName;
   const vocab = VOCABS.get(vocabName);
@@ -80,6 +90,61 @@ router.delete('/words', async request => {
 });
 
 // Lastly, handle any unknown requests with a 404
+app.get('*', async (request, response) => {
+  response.status(404).end();
+  return;
+});
+
+/* ************************************************************************
+                            INTERACT WITH TEMPLATES
+ ************************************************************************ */
+router.get('/template/:id', async (request, response) => {
+  const template = templateStorage.get(request.params.id);
+  if (template) {
+    return template;
+  } else {
+    response.status(HttpStatus.NOT_FOUND).end();
+  }
+});
+
+router.put('/template/:id', async (request, response) => {
+  const id = request.params.id;
+  const updatedTemplate = request.body;
+
+  if (id !== updatedTemplate.id) {
+    response.status(HttpStatus.BAD_REQUEST).end();
+  } else {
+    templateStorage.update(updatedTemplate);
+  }
+});
+
+router.delete('/template/:id', async request => {
+  templateStorage.delete(request.params.id);
+});
+
+router.post('/template', async request => {
+  return templateStorage.insert(request.body);
+});
+
+router.get('/templates', async request => {
+  return templateStorage.search(request.query);
+});
+
+router.post('/templates', async request => {
+  return templateStorage.insertAll(request.body);
+});
+
+router.put('/templates', async request => {
+  templateStorage.updateAll(request.body);
+});
+
+router.delete('/templates', async request => {
+  templateStorage.deleteAll(request.query.ids);
+});
+
+/* ************************************************************************
+                            UNKNOWN REQUESTS
+ ************************************************************************ */
 app.get('*', async (request, response) => {
   response.status(404).end();
   return;
