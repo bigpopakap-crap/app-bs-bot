@@ -3,7 +3,9 @@
   "private": true,
   "description": "typescript, express, react starter with a shared client/server directory. This version also includes axios and restypes for nice Typescript-typed APIs.",
   "scripts": {
-    "start": "nodemon --watch src/server --exec babel-node --  --extensions .ts src/server/index.ts"
+    "start": "nodemon --watch src/server --exec babel-node --  --extensions .ts src/server/index.ts",
+    "lint": "yarn eslint --ext json,js,jsx,ts,d.ts,tsx ./",
+    "lint:fix": "yarn lint --fix"
   },
   "dependencies": {
     "@babel/node": "7.2.2",
@@ -44,6 +46,8 @@
     "@types/webpack-dev-middleware": "^2.0.2",
     "@types/webpack-hot-middleware": "^2.16.5",
     "babel-loader": "8.0.4",
+    "eslint": "^5.16.0",
+    "eslint-config-bigpopakap": "^0.1.0",
     "nodemon": "1.18.9",
     "ts-loader": "^6.0.2",
     "typescript": "^3.5.1",
