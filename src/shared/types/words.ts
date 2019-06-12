@@ -1,3 +1,5 @@
+// TODO these should likely be made into classes so that they can have more functionality
+
 /**
  * A string representing a single word or word-phrase.
  */

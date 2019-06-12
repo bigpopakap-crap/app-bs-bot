@@ -138,6 +138,7 @@ export default class ApiExplorer extends React.Component<{}, State> {
   public render(): React.ReactNode {
     return (
       <div>
+        <h3>Words</h3>
         <section style={columnsParentStyle}>
           <div style={columnStyle}>
             <div style={boxStyle}>
@@ -173,6 +174,7 @@ export default class ApiExplorer extends React.Component<{}, State> {
           </div>
         </section>
 
+        <h3>Templates</h3>
         <section style={columnsParentStyle}>
           <div style={columnStyle}>
             <div style={boxStyle}>
@@ -192,6 +194,7 @@ export default class ApiExplorer extends React.Component<{}, State> {
           </div>
         </section>
 
+        <h3>B.S.!</h3>
         <section style={columnsParentStyle}>
           <div style={columnStyle}>
             <div style={boxStyle}>
