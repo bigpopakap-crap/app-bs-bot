@@ -4,19 +4,30 @@
 
 - Add vocab listings to the database and API
 - Combine adjectives and adverbs into one object
-- Put these dictionaries into an actual SQL database
-- Add phrases (with different suggested tags), proper nouns (with associated types of pronouns)
-- Add tests
+- Expand nouns to have zero, one, multiple cases. This is one small thing to do for i18n-proofing.
+- Put these dictionaries into an actual SQL database. Think about validation, particular with string lengths and tag-list lengths.
+- Add Phrases (with different suggested tags, ex. "exclamation"), Proper nouns (with associated types of pronouns)
+- Convert types/words.ts into actual classes
 - Add Typescript JSON validation for the API
   - https://github.com/mojotech/json-type-validation/tree/master/docs
   - https://github.com/typestack/class-validator#installation
   - https://medium.com/@ottoki/runtime-type-checking-with-io-ts-in-typescript-14465169fb02
-- Figure out the template validation story
+- Add tests
+- Nail down out the template validation story
   - does the API deal with strings or ParsedTemplate objects?
   - how to prevent creation of invalid templates? should they even be protected against?
   - how to prevent selecting a random invalid template?
   - how to handle when the template definition changes in a breaking way?
   - how to handle when there are no vocab words to fill in?
+- Get absolute path imports to work
+- Break everything up into separate packages with separate package.jsons
+  - Dependencies are managed separately
+  - linting is configured separately
+  - Explicitly define dependencies on other modules
+  - Use another build tool besides webpack?
+  - Webpack deals with each module separately
+  - Hot loading through webpack, but only for dev
+  - Prod actually builds assets
 
 # Starter kit
 
