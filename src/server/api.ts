@@ -1,11 +1,11 @@
 import express from 'express';
-import RestypedRouter from 'restyped-express-async';
+import RestypedRouter, { TypedRequest } from 'restyped-express-async';
 import HttpStatus from 'http-status-codes';
-import randomItem from 'random-item';
 import bodyParser from 'body-parser';
 
-import BsBotApi from '../shared/types/bs-bot-api-restyped';
-import { fillTemplate, randomWordProvider } from '../shared/bs';
+import BsBotApi, { MultiBsQuery } from '../shared/types/bs-bot-api-restyped';
+import { fillTemplate, getWordQueries } from '../shared/bs/template-filler';
+import { parseTemplate } from '../shared/bs';
 
 import WordStorage from './storage/words';
 import TemplateStorage from './storage/templates';
@@ -22,6 +22,55 @@ const templateStorage = new TemplateStorage();
 const app = express();
 app.use(bodyParser.json());
 const router = RestypedRouter<BsBotApi>(app);
+
+/* ************************************************************************
+                            GENERATE B.S.
+ ************************************************************************ */
+function bs(multiBsQuery: MultiBsQuery): string[] {
+  // Clean up inputs and use defaults
+  const bsQueries = multiBsQuery.bsQueries || [];
+  const noNSFW = Boolean(multiBsQuery.noNSFW);
+
+  // Collect all the template queries we need
+  const templateQueries = bsQueries.map(bsQuery => {
+    // Clean up inputs and use defaults
+    const tags = bsQuery.tags || [];
+    return {
+      noNSFW,
+      tags
+    };
+  });
+
+  // Look up random templates for these template queries
+  const parsedTemplates = templateStorage
+    .randomAll(templateQueries)
+    .map(templateMetadata => templateMetadata.value.value)
+    .map(unparsedTemplate => parseTemplate(unparsedTemplate));
+
+  // Collect all the word queries we need to satisfy these templates
+  const wordQueries = parsedTemplates
+    .map(template => getWordQueries(template, noNSFW))
+    .reduce((acc, curr) => acc.concat(curr), []);
+
+  // Look up all the words for these word queries
+  const words = wordStorage.randomAll(wordQueries).map(wordMetadata => wordMetadata.value.value);
+
+  // Now we can actually fill in all the templates!
+  return parsedTemplates.map(parsedTemplate => fillTemplate(parsedTemplate, words));
+}
+
+router.post('/bs', async request => {
+  return bs(request.body);
+});
+
+router.get('/bs', async request => {
+  const count = Math.max(request.query.count || 1, 1);
+
+  return bs({
+    noNSFW: request.query.noNSFW,
+    bsQueries: Array(count).map(() => request.query)
+  });
+});
 
 /* ************************************************************************
                             INTERACT WITH WORDS

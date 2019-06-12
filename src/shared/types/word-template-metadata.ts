@@ -2,7 +2,7 @@ import { UnparsedTemplate } from './word-templates';
 
 type PageStart = string;
 type PageEnd = string;
-type TemplateTag = string;
+export type TemplateTag = string;
 
 // TODO use paging?
 export interface TemplatePagingDescriptor {

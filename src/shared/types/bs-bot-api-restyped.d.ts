@@ -2,9 +2,44 @@ import { Optional } from './optional';
 import { StorageRowId, StoredObject } from './storage';
 import { WordMetadata, WordQuery } from './word-metadata';
 import { WordClass } from './words';
-import { TemplateMetadata, TemplateQuery } from './word-template-metadata';
+import { TemplateMetadata, TemplateQuery, TemplateTag } from './word-template-metadata';
+
+interface BsQuery {
+  tags?: TemplateTag[];
+}
+
+interface SimpleBsQuery extends BsQuery {
+  count?: number;
+  noNSFW?: boolean;
+}
+
+export interface MultiBsQuery {
+  noNSFW?: boolean;
+  bsQueries: BsQuery[];
+}
 
 export default interface BsBotApi {
+  /* ************************************************************************
+                            GENERATE B.S.
+     ************************************************************************ */
+  '/bs': {
+    /**
+     * Get multiple B.S. strings for the same tags
+     */
+    GET: {
+      query: SimpleBsQuery;
+      response: string[];
+    };
+
+    /**
+     * Get multiple B.S. strings, with a little more control over each result
+     */
+    POST: {
+      body: MultiBsQuery;
+      response: string[];
+    };
+  };
+
   /* ************************************************************************
                             INTERACT WITH WORDS
      ************************************************************************ */
