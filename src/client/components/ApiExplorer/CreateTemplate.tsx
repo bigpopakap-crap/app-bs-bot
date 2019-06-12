@@ -6,7 +6,7 @@ import bsBotClient from '../../utils/bs-bot-client';
 import { UnparsedTemplate } from '../../../shared/types/word-templates';
 
 interface Props {
-  afterSuccessfulCreate: (template: StoredObject<TemplateMetadata>) => void;
+  afterCreate: (template: StoredObject<TemplateMetadata>) => void;
 }
 
 interface State {
@@ -58,7 +58,7 @@ export default class CreateTemplate extends React.Component<Props, State> {
           unparsedTemplate: ''
         });
 
-        this.props.afterSuccessfulCreate(response.data);
+        this.props.afterCreate(response.data);
       },
       err => {
         alert(`Error: ${err}`);

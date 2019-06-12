@@ -177,7 +177,7 @@ export default class ApiExplorer extends React.Component<{}, State> {
           <div style={columnStyle}>
             <div style={boxStyle}>
               <h2>Create template</h2>
-              <CreateTemplate afterSuccessfulCreate={this.refreshTemplates} />
+              <CreateTemplate afterCreate={this.refreshTemplates} />
             </div>
           </div>
           <div style={columnStyle}>
