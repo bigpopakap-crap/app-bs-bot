@@ -34,7 +34,7 @@ const columnsParentStyle = {
 };
 
 const columnStyle = {
-  flex: '1 0 auto'
+  flex: '50%'
 };
 
 const boxStyle = {
