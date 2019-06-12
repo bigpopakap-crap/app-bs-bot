@@ -62,7 +62,6 @@ export default class ApiExplorer extends React.Component<{}, State> {
 
     this.refreshWords = this.refreshWords.bind(this);
     this.refreshTemplates = this.refreshTemplates.bind(this);
-    this.createWord = this.createWord.bind(this);
     this.updateWordQuery = this.updateWordQuery.bind(this);
     this.updateTemplateQuery = this.updateTemplateQuery.bind(this);
   }
@@ -115,16 +114,6 @@ export default class ApiExplorer extends React.Component<{}, State> {
     }
   }
 
-  private async createWord(word: WordMetadata<WordClass>) {
-    await bsBotClient.request({
-      method: 'POST',
-      url: '/word',
-      data: word
-    });
-
-    this.refreshWords();
-  }
-
   private updateWordQuery(wordQuery: WordQuery) {
     this.setState({
       wordQuery
@@ -153,22 +142,22 @@ export default class ApiExplorer extends React.Component<{}, State> {
           <div style={columnStyle}>
             <div style={boxStyle}>
               <h2>Create verb</h2>
-              <CreateVerb onCreate={this.createWord} />
+              <CreateVerb afterCreate={this.refreshWords} />
             </div>
 
             <div style={boxStyle}>
               <h2>Create adjective</h2>
-              <CreateAdjective onCreate={this.createWord} />
+              <CreateAdjective afterCreate={this.refreshWords} />
             </div>
 
             <div style={boxStyle}>
               <h2>Create adverb</h2>
-              <CreateAdverb onCreate={this.createWord} />
+              <CreateAdverb afterCreate={this.refreshWords} />
             </div>
 
             <div style={boxStyle}>
               <h2>Create noun</h2>
-              <CreateNoun onCreate={this.createWord} />
+              <CreateNoun afterCreate={this.refreshWords} />
             </div>
           </div>
 

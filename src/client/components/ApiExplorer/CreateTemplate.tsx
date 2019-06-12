@@ -44,7 +44,7 @@ export default class CreateTemplate extends React.Component<Props, State> {
     });
   }
 
-  private submit(event: React.FormEvent) {
+  private submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     this.createTemplate({
