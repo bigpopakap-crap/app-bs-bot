@@ -200,6 +200,8 @@ export function parseTemplate(input: UnparsedTemplate): ParsedTemplate {
             wordClass=${wordClass} conflicted with previousWordClass=${previousWordClass}`
         );
       }
+
+      // TODO also check that the new placeholder doesn't have different tags.
     } else {
       wordIdToClass.set(id, wordClass);
     }

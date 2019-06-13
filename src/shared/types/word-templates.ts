@@ -23,6 +23,7 @@ export type WordId = number;
 interface BasePlaceholder<T extends WordClass> {
   id: WordId;
   class: T;
+  // TODO add a tags[] array
   // TODO add a toString() method that prints it out like "{1:verb:past:participle}"
 }
 

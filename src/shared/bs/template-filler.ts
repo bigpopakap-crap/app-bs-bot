@@ -5,6 +5,7 @@ import { WordQuery } from '../types/word-metadata';
 import { formatWord } from './word-formatter';
 import WordProvider from './word-provider';
 
+// TODO de-dupe by wordId. Don't request a new word query for each wordId
 export function getWordQueries(template: ParsedTemplate, noNSFW: boolean): WordQuery[] {
   return template.filter(isPlaceholder).map(placeholder => ({
     wordClass: placeholder.class,
