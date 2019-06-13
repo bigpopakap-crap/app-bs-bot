@@ -19,6 +19,8 @@
   - how to prevent selecting a random invalid template?
   - how to handle when the template definition changes in a breaking way?
   - how to handle when there are no vocab words to fill in?
+- Add some logs for debugging (API inputs, outputs, errors, steps along the way, etc.)
+- Add some metrics  tracking (Segment? Mixpanel?)
 - Get absolute path imports to work
 - Break everything up into separate packages with separate package.jsons
   - Dependencies are managed separately
