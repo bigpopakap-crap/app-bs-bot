@@ -30,6 +30,10 @@
   - Webpack deals with each module separately
   - Hot loading through webpack, but only for dev
   - Prod actually builds assets
+- Add tags and isNSFW to the input components
+- Add some integration with a dictionary so that people don't have to re-enter words all the time
+- Figure out how to de-dupe templates and words so that people can re-use existing ones
+- Make tags be specific to a vocab list? (some vocab lists might want some tags, while others might want different tags)
 
 # Starter kit
 
