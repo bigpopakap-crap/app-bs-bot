@@ -83,7 +83,10 @@ export default class
         .filter(row => !query.noNSFW || !row.value.isNSFW)
         // Only include templates that have ALL tags, unless the query doesn't specify any tags
         .filter(
-          row => !query.tags || intersect(row.value.tags, query.tags).length === query.tags.length
+          row =>
+            !query.tags ||
+            query.tags.length === 0 ||
+            intersect(row.value.tags, query.tags).length === query.tags.length
         )
         // Only include templates that have the searchText somewhere in it
         .filter(row => !query.searchText || row.value.value.includes(query.searchText))

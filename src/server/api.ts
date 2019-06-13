@@ -6,6 +6,7 @@ import bodyParser from 'body-parser';
 import BsBotApi, { MultiBsQuery } from '../shared/types/bs-bot-api-restyped';
 import { fillTemplate, getWordQueries } from '../shared/bs/template-filler';
 import { parseTemplate } from '../shared/bs';
+import WordProvider from '../shared/bs/word-provider';
 
 import WordStorage from './storage/words';
 import TemplateStorage from './storage/templates';
@@ -27,9 +28,10 @@ const router = RestypedRouter<BsBotApi>(app);
                             GENERATE B.S.
  ************************************************************************ */
 function bs(multiBsQuery: MultiBsQuery): string[] {
+  console.log(`Handling multiBsQuery=${JSON.stringify(multiBsQuery)}`);
   // Clean up inputs and use defaults
   const bsQueries = multiBsQuery.bsQueries || [];
-  const noNSFW = Boolean(multiBsQuery.noNSFW);
+  const noNSFW = multiBsQuery.noNSFW;
 
   // Collect all the template queries we need
   const templateQueries = bsQueries.map(bsQuery => {
@@ -40,23 +42,31 @@ function bs(multiBsQuery: MultiBsQuery): string[] {
       tags
     };
   });
+  console.log(`templateQueries=${JSON.stringify(templateQueries)}`);
 
   // Look up random templates for these template queries
   const parsedTemplates = templateStorage
     .randomAll(templateQueries)
+    .filter(templateMetadata => Boolean(templateMetadata))
     .map(templateMetadata => templateMetadata.value.value)
     .map(unparsedTemplate => parseTemplate(unparsedTemplate));
+  console.log(`parsedTemplates=${JSON.stringify(parsedTemplates)}`);
 
   // Collect all the word queries we need to satisfy these templates
   const wordQueries = parsedTemplates
     .map(template => getWordQueries(template, noNSFW))
     .reduce((acc, curr) => acc.concat(curr), []);
+  console.log(`wordQueries=${JSON.stringify(wordQueries)}`);
 
   // Look up all the words for these word queries
   const words = wordStorage.randomAll(wordQueries).map(wordMetadata => wordMetadata.value.value);
+  console.log(`words=${JSON.stringify(words)}`);
+
+  // Put these into a WordProvider
+  const wordProvider = new WordProvider(words);
 
   // Now we can actually fill in all the templates!
-  return parsedTemplates.map(parsedTemplate => fillTemplate(parsedTemplate, words));
+  return parsedTemplates.map(parsedTemplate => fillTemplate(parsedTemplate, wordProvider));
 }
 
 router.post('/bs', async request => {
@@ -68,7 +78,7 @@ router.get('/bs', async request => {
 
   return bs({
     noNSFW: request.query.noNSFW,
-    bsQueries: Array(count).map(() => request.query)
+    bsQueries: Array.from({ length: count }).map(() => request.query)
   });
 });
 

@@ -76,7 +76,10 @@ export default class<T extends WordClass>
         .filter(row => !query.wordClass || row.value.value.class === query.wordClass)
         // Only include words that have ALL tags, unless the query doesn't specify any tags
         .filter(
-          row => !query.tags || intersect(row.value.tags, query.tags).length === query.tags.length
+          row =>
+            !query.tags ||
+            query.tags.length === 0 ||
+            intersect(row.value.tags, query.tags).length === query.tags.length
         )
         // Only include words that have at least one form starting with the searchText, if provided by the query
         .filter(

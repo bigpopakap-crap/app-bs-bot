@@ -32,7 +32,6 @@ export default class GenerateBS extends React.Component<{}, State> {
         url: '/bs',
         params: {
           count: 3,
-          noNSFW: false,
           tags: []
         }
       })
@@ -55,7 +54,7 @@ export default class GenerateBS extends React.Component<{}, State> {
   }
 
   public render() {
-    const bsOutputList = this.state.bsOutput.map(bs => <li key={bs}>{bs}</li>);
+    const bsOutputList = this.state.bsOutput.map((bs, index) => <li key={index}>{bs}</li>);
 
     const bsContent = this.state.isLoading ? (
       <div>
